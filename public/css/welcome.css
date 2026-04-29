@@ -1,0 +1,320 @@
+   *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E2C47A;
+            --gold-dim: rgba(201, 168, 76, 0.15);
+            --ink: #0C0E18;
+            --ink-2: #12151F;
+            --surface: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-primary: #F0EDE6;
+            --text-muted: rgba(240, 237, 230, 0.5);
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--ink);
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+
+        /* ── Canvas background ── */
+        #bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── Layout ── */
+        .layout {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100vh;
+        }
+
+        /* ── Left panel ── */
+        .panel-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 52px 64px;
+            border-right: 1px solid var(--border);
+        }
+
+        .logo-mark {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid var(--gold);
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+        }
+
+        .logo-icon svg {
+            width: 18px;
+            height: 18px;
+            color: var(--gold);
+        }
+
+        .logo-text {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .panel-left-main {
+            opacity: 0;
+            transform: translateY(24px);
+            animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+        }
+
+        .tagline-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gold-dim);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            border-radius: 100px;
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 32px;
+        }
+
+        .tagline-pill::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garant', serif;
+            font-size: clamp(48px, 5vw, 72px);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .subtitle {
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--text-muted);
+            max-width: 380px;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 40px;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+        }
+
+
+        .stat-value {
+            font-family: 'Cormorant Garant', serif;
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
+            margin-top: 4px;
+        }
+
+        .stat-divider {
+            width: 1px;
+            background: var(--border);
+            align-self: stretch;
+        }
+
+        /* ── Right panel ── */
+        .panel-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 52px 64px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            opacity: 0;
+            transform: translateY(28px);
+            animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+        }
+
+        .card-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .card-title {
+            font-family: 'Cormorant Garant', serif;
+            font-size: 38px;
+            font-weight: 600;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 48px;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin-bottom: 48px;
+        }
+
+        .btn-login {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 18px 24px;
+            background: var(--gold);
+            color: #0C0E18;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+            margin-bottom: 16px;
+        }
+
+        .btn-login:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .btn-arrow {
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 0, 0, 0.12);
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+        }
+
+        .btn-arrow svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .security-note {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .security-note svg {
+            width: 13px;
+            height: 13px;
+            flex-shrink: 0;
+            color: var(--text-muted);
+        }
+
+        .footer-copy {
+            margin-top: 64px;
+            font-size: 11px;
+            color: rgba(240, 237, 230, 0.25);
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        /* ── Animations ── */
+        @keyframes rise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 860px) {
+
+            html,
+            body {
+                overflow: auto;
+            }
+
+            .layout {
+                grid-template-columns: 1fr;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .panel-left {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 40px 32px;
+            }
+
+            .panel-right {
+                padding: 48px 32px;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+        }

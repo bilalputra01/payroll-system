@@ -1,0 +1,369 @@
+    *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E2C47A;
+            --gold-dim: rgba(201, 168, 76, 0.12);
+            --ink: #0C0E18;
+            --ink2: #12151F;
+            --ink3: #181C28;
+            --border: rgba(255, 255, 255, 0.07);
+            --border2: rgba(255, 255, 255, 0.12);
+            --text-primary: #F0EDE6;
+            --text-muted: rgba(240, 237, 230, 0.45);
+            --text-subtle: rgba(240, 237, 230, 0.18);
+        }
+
+        /* Override app layout background */
+        body {
+            background: var(--ink) !important;
+            color: var(--text-primary) !important;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        /* ── Google Fonts ── */
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garant:wght@400;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+
+        /* ── Page header slot ── */
+        .dash-page-header {
+            padding: 28px 40px 0;
+        }
+
+        .dash-eyebrow {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .dash-title {
+            font-family: 'Cormorant Garant', serif;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+        }
+
+        .dash-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        /* ── Main content area ── */
+        .dash-main {
+            padding: 32px 40px 48px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* ── Stat cards ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(18px);
+            animation: dash-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+        }
+
+        .stat-card {
+            background: var(--ink3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 26px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--border2);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .stat-card--blue::before {
+            background: linear-gradient(180deg, #60A5FA, #2563EB);
+        }
+
+        .stat-card--green::before {
+            background: linear-gradient(180deg, #4ADE80, #16A34A);
+        }
+
+        .stat-card--gold::before {
+            background: linear-gradient(180deg, var(--gold-light), var(--gold));
+        }
+
+        .stat-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-family: 'Cormorant Garant', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .stat-value span {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            color: var(--text-muted);
+            margin-left: 4px;
+        }
+
+        .stat-value--rp {
+            font-family: 'Cormorant Garant', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.1;
+        }
+
+        /* ── Card base ── */
+        .dash-card {
+            background: var(--ink3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 30px;
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(18px);
+        }
+
+        .dash-card--anim1 {
+            animation: dash-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+        }
+
+        .dash-card--anim2 {
+            animation: dash-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-family: 'Cormorant Garant', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .card-badge {
+            font-size: 9px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            background: var(--gold-dim);
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            border-radius: 100px;
+            padding: 4px 12px;
+        }
+
+        /* ── Table ── */
+        .dash-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .dash-table thead tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dash-table th {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 0 16px 14px;
+            text-align: left;
+        }
+
+        .dash-table th.text-center {
+            text-align: center;
+        }
+
+        .dash-table tbody tr {
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
+        }
+
+        .dash-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .dash-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .dash-table td {
+            padding: 14px 16px;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .dash-table td.text-center {
+            text-align: center;
+        }
+
+        .td-period {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .td-amount {
+            font-family: 'Cormorant Garant', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--gold-light);
+        }
+
+        .td-empty {
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 13px;
+        }
+
+        /* ── Slip button ── */
+        .btn-slip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--gold-dim);
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            border-radius: 6px;
+            padding: 7px 16px;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--gold-light);
+            text-decoration: none;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .btn-slip:hover {
+            background: rgba(201, 168, 76, 0.22);
+            border-color: rgba(201, 168, 76, 0.45);
+        }
+
+        .btn-slip svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        /* ── Greeting card ── */
+        .greet-name {
+            font-family: 'Cormorant Garant', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .greet-name em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .greet-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        /* ── Warning ── */
+        .warn-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: rgba(201, 168, 76, 0.06);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 10px;
+            padding: 18px 22px;
+        }
+
+        .warn-icon {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            background: var(--gold-dim);
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+        }
+
+        .warn-icon svg {
+            width: 16px;
+            height: 16px;
+            color: var(--gold-light);
+        }
+
+        .warn-text {
+            font-size: 13px;
+            color: rgba(226, 196, 122, 0.85);
+            line-height: 1.65;
+        }
+
+        /* ── Chart ── */
+        #payrollChart {
+            display: block;
+        }
+
+        /* ── Animation ── */
+        @keyframes dash-rise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dash-main {
+                padding: 24px 20px 48px;
+            }
+
+            .dash-page-header {
+                padding: 20px 20px 0;
+            }
+        }

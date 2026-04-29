@@ -1,0 +1,116 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Karyawan;
+use Illuminate\Http\Request;
+
+class KaryawanController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        // Ambil semua data karyawan, dan tarik juga data 'jabatan' yang berelasi dengannya
+        $karyawan = \App\Models\Karyawan::with('jabatan')->get();
+
+        // Kirim data tersebut ke halaman tampilan (view)
+        return view('karyawan.index', compact('karyawan'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $jabatan = \App\Models\Jabatan::all();
+
+        return view('karyawan.create', compact('jabatan'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // 1. Validasi Semua Inputan
+        $request->validate([
+            'nik' => 'required|string|unique:karyawan,nik',
+            'nama_karyawan' => 'required|string|max:255',
+            'email' => 'required|email|unique:karyawan,email|unique:users,email',
+            'status' => 'required|in:Tetap,Kontrak,Magang',
+            'jabatan_id' => 'required',
+            'nama_bank' => 'required|in:BCA,Mandiri,BRI',
+            'nomor_rekening' => 'required|string|max:50',
+        ]);
+
+        // 2. Simpan Data Karyawan (Termasuk Bank & Rekening)
+        $karyawan_baru = \App\Models\Karyawan::create([
+            'nik' => $request->nik,
+            'nama_karyawan' => $request->nama_karyawan,
+            'email' => $request->email,
+            'status' => $request->status,
+            'jabatan_id' => $request->jabatan_id,
+            'nama_bank' => $request->nama_bank,
+            'nomor_rekening' => $request->nomor_rekening,
+        ]);
+
+        // 3. Otomatis Buatkan Akun Login
+        $username_karyawan = strtolower(str_replace(' ', '', $request->nama_karyawan));
+
+        \App\Models\User::create([
+            'name' => $karyawan_baru->nama_karyawan,
+            'username' => $username_karyawan . rand(100, 999), // Username unik
+            'email' => $karyawan_baru->email,
+            'role' => 'karyawan',
+            'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+            'nik' => $karyawan_baru->nik, // Tali pengikat ke karyawan
+        ]);
+
+        // 4. Kembali ke halaman tabel
+        return redirect()->route('karyawan.index')->with('success', 'Data Karyawan Dan Akun Login berhasil dibuat!');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Karyawan $karyawan)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Karyawan $karyawan)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Karyawan $karyawan)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($nik)
+    {
+        // 1. Cari data karyawan berdasarkan NIK
+        $karyawan = \App\Models\Karyawan::where('nik', $nik)->firstOrFail();
+
+        // 2. Hapus akun login (User) yang terhubung dengan NIK tersebut
+        \App\Models\User::where('nik', $karyawan->nik)->delete();
+
+        // 3. Hapus data karyawannya
+        $karyawan->delete();
+
+        // 4. Kembalikan ke halaman depan dengan pesan sukses
+        return redirect()->route('karyawan.index')->with('success', 'Data karyawan beserta akun loginnya berhasil dihapus permanen!');
+    }
+}
