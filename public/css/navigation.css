@@ -1,0 +1,273 @@
+ @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garant:wght@600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+
+    :root {
+        --gold: #C9A84C;
+        --gold-light: #E2C47A;
+        --gold-dim: rgba(201, 168, 76, 0.12);
+        --ink: #0C0E18;
+        --border: rgba(255, 255, 255, 0.08);
+        --text-primary: #F0EDE6;
+        --text-muted: rgba(240, 237, 230, 0.45);
+        --text-subtle: rgba(240, 237, 230, 0.18);
+    }
+
+    /* ── Navbar shell ── */
+    nav.hris-nav {
+        background: rgba(12, 14, 24, 0.97);
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    .hris-nav-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+    }
+
+    /* ── Logo ── */
+    .hris-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        flex-shrink: 0;
+    }
+
+    .hris-logo-box {
+        width: 30px;
+        height: 30px;
+        border: 1.5px solid var(--gold);
+        border-radius: 7px;
+        display: grid;
+        place-items: center;
+    }
+
+    .hris-logo-box svg {
+        width: 15px;
+        height: 15px;
+        color: var(--gold);
+    }
+
+    .hris-logo-wordmark {
+        font-family: 'Cormorant Garant', serif;
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: 0.01em;
+        line-height: 1;
+    }
+
+    .hris-logo-wordmark em {
+        font-style: italic;
+        color: var(--gold-light);
+    }
+
+    /* ── Nav links (desktop) ── */
+    .hris-nav-links {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: 32px;
+    }
+
+    .hris-nav-link {
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        color: var(--text-muted);
+        text-decoration: none;
+        padding: 7px 14px;
+        border-radius: 7px;
+        border: 1px solid transparent;
+        transition: color 0.18s, background 0.18s, border-color 0.18s;
+        white-space: nowrap;
+    }
+
+    .hris-nav-link:hover {
+        color: var(--text-primary);
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    .hris-nav-link.active {
+        color: var(--gold-light);
+        background: var(--gold-dim);
+        border-color: rgba(201, 168, 76, 0.22);
+    }
+
+    /* ── Right section ── */
+    .hris-nav-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    /* Role pill */
+    .hris-role-pill {
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        background: var(--gold-dim);
+        border: 1px solid rgba(201, 168, 76, 0.25);
+        border-radius: 100px;
+        padding: 3px 10px;
+    }
+
+    /* User dropdown trigger */
+    .hris-user-btn {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        background: transparent;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 6px 12px;
+        cursor: pointer;
+        color: var(--text-muted);
+        font-family: 'DM Sans', sans-serif;
+        font-size: 12px;
+        transition: border-color 0.18s, background 0.18s;
+    }
+
+    .hris-user-btn:hover {
+        border-color: rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text-primary);
+    }
+
+    .hris-user-avatar {
+        width: 26px;
+        height: 26px;
+        background: var(--gold-dim);
+        border: 1px solid rgba(201, 168, 76, 0.3);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--gold-light);
+        flex-shrink: 0;
+    }
+
+    .hris-chevron {
+        width: 14px;
+        height: 14px;
+        color: var(--text-subtle);
+        transition: transform 0.2s;
+        fill: currentColor;
+    }
+
+    /* ── Mobile toggle ── */
+    .hris-mobile-btn {
+        display: none;
+        background: none;
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        padding: 7px;
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: border-color 0.18s, color 0.18s;
+    }
+
+    .hris-mobile-btn:hover {
+        border-color: var(--border);
+        color: var(--text-primary);
+    }
+
+    .hris-mobile-btn svg {
+        width: 16px;
+        height: 16px;
+        display: block;
+    }
+
+    /* ── Mobile menu ── */
+    .hris-mobile-menu {
+        display: none;
+        border-top: 1px solid var(--border);
+        background: rgba(12, 14, 24, 0.98);
+        padding: 12px 20px 20px;
+    }
+
+    .hris-mobile-menu.open {
+        display: block;
+    }
+
+    .hris-mobile-link {
+        display: block;
+        font-size: 13px;
+        color: var(--text-muted);
+        padding: 10px 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background 0.15s, color 0.15s;
+    }
+
+    .hris-mobile-link:hover,
+    .hris-mobile-link.active {
+        color: var(--gold-light);
+        background: var(--gold-dim);
+    }
+
+    .hris-mobile-user {
+        padding: 16px 12px 10px;
+        border-top: 1px solid var(--border);
+        margin-top: 8px;
+    }
+
+    .hris-mobile-uname {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-bottom: 2px;
+    }
+
+    .hris-mobile-email {
+        font-size: 11px;
+        color: var(--text-subtle);
+    }
+
+    .hris-mobile-link-danger {
+        color: rgba(240, 100, 100, 0.7) !important;
+    }
+
+    .hris-mobile-link-danger:hover {
+        background: rgba(240, 100, 100, 0.07) !important;
+        color: rgba(240, 120, 120, 1) !important;
+    }
+
+    /* Alpine open state for chevron */
+    [x-data] .hris-chevron-wrap[aria-expanded="true"] .hris-chevron {
+        transform: rotate(180deg);
+    }
+
+    @media (max-width: 768px) {
+        .hris-nav-links {
+            display: none;
+        }
+
+        .hris-nav-right .hris-role-pill {
+            display: none;
+        }
+
+        .hris-user-btn {
+            display: none;
+        }
+
+        .hris-mobile-btn {
+            display: flex;
+        }
+
+        .hris-nav-inner {
+            padding: 0 20px;
+        }
+    }

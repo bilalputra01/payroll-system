@@ -1,0 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garant:wght@600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+
+        :root {
+            --gold: #C9A84C;
+            --gold-light: #E2C47A;
+            --gold-dim: rgba(201, 168, 76, 0.12);
+            --ink: #0C0E18;
+            --ink3: #181C28;
+            --border: rgba(255, 255, 255, 0.07);
+            --border2: rgba(255, 255, 255, 0.13);
+            --text-primary: #F0EDE6;
+            --text-muted: rgba(240, 237, 230, 0.45);
+            --text-subtle: rgba(240, 237, 230, 0.18);
+        }
+
+        body {
+            background: var(--ink) !important;
+            color: var(--text-primary) !important;
+        }
+
+        /* ── Page header ── */
+        .kry-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 32px 40px 0;
+            max-width: 1280px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: kry-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+        }
+
+        .kry-eyebrow {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .kry-title {
+            font-family: 'Cormorant Garant', serif;
+            font-size: 34px;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+        }
+
+        .kry-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        /* ── Add button ── */
+        .btn-tambah {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gold);
+            color: #0C0E18;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            white-space: nowrap;
+        }
+
+        .btn-tambah:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-tambah:active {
+            transform: translateY(0);
+        }
+
+        .btn-tambah svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* ── Table card ── */
+        .kry-card {
+            background: var(--ink3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 30px;
+            margin: 24px 40px 48px;
+            max-width: 1280px;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: kry-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+        }
+
+        /* Override DataTables wrapper to match dark theme */
+        .dataTables_wrapper .dataTables_filter input {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 8px !important;
+            padding: 8px 14px !important;
+            color: var(--text-primary) !important;
+            font-family: 'DM Sans', sans-serif !important;
+            font-size: 12px !important;
+            outline: none !important;
+            transition: border-color 0.2s !important;
+        }
+
+        .dataTables_wrapper .dataTables_filter input:focus {
+            border-color: rgba(201, 168, 76, 0.4) !important;
+        }
+
+        .dataTables_wrapper .dataTables_filter label,
+        .dataTables_wrapper .dataTables_length label,
+        .dataTables_wrapper .dataTables_info {
+            font-size: 11px !important;
+            color: var(--text-muted) !important;
+            font-family: 'DM Sans', sans-serif !important;
+        }
+
+        .dataTables_wrapper .dataTables_length select {
+            background: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 6px !important;
+            color: var(--text-primary) !important;
+            font-family: 'DM Sans', sans-serif !important;
+            font-size: 12px !important;
+            padding: 4px 8px !important;
+        }
+
+        /* Mengubah warna latar kotak dropdown pilihan angka (10, 25, 50, 100) menjadi gelap */
+        .dataTables_wrapper .dataTables_length select option {
+            background-color: var(--ink3) !important;
+            color: var(--text-primary) !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            background: none !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 6px !important;
+            color: var(--text-muted) !important;
+            font-size: 12px !important;
+            padding: 4px 10px !important;
+            margin: 0 2px !important;
+            transition: background 0.15s, border-color 0.15s, color 0.15s !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background: var(--gold-dim) !important;
+            border-color: rgba(201, 168, 76, 0.3) !important;
+            color: var(--gold-light) !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+            background: var(--gold-dim) !important;
+            border-color: rgba(201, 168, 76, 0.35) !important;
+            color: var(--gold-light) !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+            color: var(--text-subtle) !important;
+            border-color: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        /* ── Table ── */
+        .kry-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .kry-table thead tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .kry-table th {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 0 16px 14px;
+            text-align: left;
+        }
+
+        .kry-table tbody tr {
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
+        }
+
+        .kry-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .kry-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .kry-table td {
+            padding: 14px 16px;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        /* ── Badges ── */
+        .badge-jabatan {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 100px;
+            padding: 3px 10px;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            color: #A5B4FC;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border-radius: 100px;
+            padding: 3px 10px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        .badge-status::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+
+        .badge-status.aktif {
+            background: rgba(3, 255, 95, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            color: #4ADE80;
+        }
+
+        .badge-status.aktif::before {
+            background: #4ADE80;
+        }
+
+        .badge-status.nonaktif {
+            background: rgba(240, 237, 230, 0.06);
+            border: 1px solid rgba(240, 237, 230, 0.1);
+            color: var(--text-muted);
+        }
+
+        .badge-status.nonaktif::before {
+            background: var(--text-muted);
+        }
+
+        /* ── Salary ── */
+        .td-salary {
+            font-family: 'Cormorant Garant', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gold-light);
+        }
+
+        /* ── Delete button ── */
+        .btn-hapus {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: 500;
+            color: rgba(252, 165, 165, 0.85);
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: background 0.2s, border-color 0.2s, color 0.2s;
+        }
+
+        .btn-hapus:hover {
+            background: rgba(239, 68, 68, 0.18);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #FCA5A5;
+        }
+
+        .btn-hapus svg {
+            width: 12px;
+            height: 12px;
+        }
+
+        /* Override SweetAlert2 to match dark theme */
+        .swal2-popup {
+            background: #12151F !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 14px !important;
+            font-family: 'DM Sans', sans-serif !important;
+            color: #F0EDE6 !important;
+        }
+
+        .swal2-title {
+            color: #F0EDE6 !important;
+            font-family: 'Cormorant Garant', serif !important;
+            font-size: 26px !important;
+        }
+
+        .swal2-html-container {
+            color: rgba(240, 237, 230, 0.55) !important;
+            font-size: 13px !important;
+        }
+
+        .swal2-confirm {
+            background: rgba(239, 68, 68, 0.85) !important;
+            border-radius: 8px !important;
+            font-family: 'DM Sans', sans-serif !important;
+            font-size: 12px !important;
+            font-weight: 500 !important;
+        }
+
+        .swal2-cancel {
+            background: rgba(255, 255, 255, 0.06) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 8px !important;
+            color: rgba(240, 237, 230, 0.6) !important;
+            font-family: 'DM Sans', sans-serif !important;
+            font-size: 12px !important;
+            font-weight: 500 !important;
+        }
+
+        .swal2-icon.swal2-warning {
+            border-color: var(--gold) !important;
+            color: var(--gold) !important;
+        }
+
+        @keyframes kry-rise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kry-header {
+                padding: 24px 20px 0;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .kry-card {
+                margin: 20px 16px 48px;
+                padding: 20px 18px;
+            }
+        }

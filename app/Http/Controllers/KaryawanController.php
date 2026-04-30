@@ -41,7 +41,7 @@ class KaryawanController extends Controller
             'email' => 'required|email|unique:karyawan,email|unique:users,email',
             'status' => 'required|in:Tetap,Kontrak,Magang',
             'jabatan_id' => 'required',
-            'nama_bank' => 'required|in:BCA,Mandiri,BRI',
+            'nama_bank' => 'required|in:BCA',
             'nomor_rekening' => 'required|string|max:50',
         ]);
 
