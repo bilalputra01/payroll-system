@@ -5,6 +5,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\PenggajianController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -12,33 +13,11 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    $user = Auth::user();
 
-    if ($user->role === 'admin') {
-        // Logika Admin (Tetap sama seperti sebelumnya)
-        $total_karyawan = \App\Models\Karyawan::count();
-        $total_jabatan = \App\Models\Jabatan::count();
-        $pengeluaran_total = \App\Models\Penggajian::sum('gaji_bersih');
-        $grafik_periode = \App\Models\Penggajian::selectRaw('periode, SUM(gaji_bersih) as total')
-            ->groupBy('periode')->orderBy('periode', 'asc')->take(5)->get();
 
-        return view('dashboard', [
-            'total_karyawan' => $total_karyawan,
-            'total_jabatan' => $total_jabatan,
-            'pengeluaran_total' => $pengeluaran_total,
-            'label_grafik' => $grafik_periode->pluck('periode'),
-            'data_grafik' => $grafik_periode->pluck('total'),
-        ]);
-    } else {
-        // LOGIKA KARYAWAN: Ambil riwayat gaji MILIK SENDIRI
-        $riwayat_gaji = \App\Models\Penggajian::where('nik', $user->nik)
-            ->orderBy('periode', 'desc')
-            ->get();
-
-        return view('dashboard', compact('riwayat_gaji'));
-    }
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 
 Route::middleware(['auth', 'can:admin'])->group(function () {

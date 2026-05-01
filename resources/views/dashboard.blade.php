@@ -39,7 +39,17 @@
                     <p class="stat-value">{{ $total_jabatan }} <span>Posisi</span></p>
                 </div>
                 <div class="stat-card stat-card--gold">
-                    <p class="stat-label">Total Pengeluaran Gaji</p>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <p class="stat-label">Total Pengeluaran Gaji</p>
+
+                        {{-- ── FORM FILTER PERIODE ── --}}
+                        <form action="{{ route('dashboard') }}" method="GET" id="form-periode-gaji">
+                            <input type="month" name="periode_gaji" value="{{ request('periode_gaji', date('Y-m')) }}"
+                                onchange="document.getElementById('form-periode-gaji').submit();"
+                                style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #F0EDE6; padding: 4px 8px; font-size: 11px; outline: none; color-scheme: dark; cursor: pointer;">
+                        </form>
+                    </div>
+
                     <p class="stat-value--rp">Rp {{ number_format($pengeluaran_total, 0, ',', '.') }}</p>
                 </div>
             </div>
@@ -61,8 +71,7 @@
         @else
             {{-- ── EMPLOYEE GREETING ── --}}
             <div class="dash-card dash-card--anim1">
-                <p class="greet-name">Halo, <em>{{ Auth::user()->name }}</em></p>
-                <p class="greet-sub">Selamat datang kembali di portal karyawan.</p>
+
 
                 @if (Auth::user()->nik)
                     {{-- ── SALARY TABLE ── --}}
