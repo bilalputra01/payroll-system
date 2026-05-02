@@ -16,10 +16,17 @@ class PenggajianController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil data gaji yang sudah dihitung beserta nama karyawannya
-        $penggajian = \App\Models\Penggajian::with('karyawan')->get();
+        // 1. Tangkap bulan yang dipilih dari form filter (Default: bulan ini)
+        $filter_periode = $request->input('filter_periode', date('Y-m'));
+
+        // 2. Filter data penggajian berdasarkan bulan tersebut
+        $penggajian = \App\Models\Penggajian::with('karyawan')
+            ->where('periode', $filter_periode)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('penggajian.index', compact('penggajian'));
     }
 

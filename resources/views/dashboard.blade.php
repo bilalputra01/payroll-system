@@ -30,15 +30,15 @@
 
             {{-- ── STAT CARDS ── --}}
             <div class="stats-grid">
-                <div class="stat-card stat-card--blue">
+                <div class="stat-card ">
                     <p class="stat-label">Total Karyawan Aktif</p>
                     <p class="stat-value">{{ $total_karyawan }} <span>Orang</span></p>
                 </div>
-                <div class="stat-card stat-card--green">
+                <div class="stat-card ">
                     <p class="stat-label">Total Posisi Jabatan</p>
                     <p class="stat-value">{{ $total_jabatan }} <span>Posisi</span></p>
                 </div>
-                <div class="stat-card stat-card--gold">
+                <div class="stat-card ">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                         <p class="stat-label">Total Pengeluaran Gaji</p>
 

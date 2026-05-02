@@ -38,10 +38,24 @@
                             </span>
                         </td>
                         <td>
-                            <span
-                                class="badge-status {{ in_array(strtolower($k->status), ['tetap', 'kontrak']) ? 'aktif' : 'nonaktif' }}">
+                            @php
+                                // Menentukan class CSS berdasarkan status (diubah ke huruf kecil semua agar aman)
+                                $statusClass = '';
+                                $statusText = strtolower($k->status); // Sesuaikan '$k' dengan variabel foreach Anda
+
+                                if ($statusText == 'tetap') {
+                                    $statusClass = 'status-tetap';
+                                } elseif ($statusText == 'kontrak') {
+                                    $statusClass = 'status-kontrak';
+                                    // } elseif ($statusText == 'magang') {
+                                    //     $statusClass = 'status-magang';
+                                }
+                            @endphp
+
+                            <div class="badge-status {{ $statusClass }}">
+                                <span class="dot"></span>
                                 {{ $k->status }}
-                            </span>
+                            </div>
                         </td>
                         <td class="td-salary">
                             Rp {{ number_format($k->jabatan->gaji_pokok, 0, ',', '.') }}

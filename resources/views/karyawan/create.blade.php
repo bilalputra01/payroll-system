@@ -46,12 +46,12 @@
                     <label>Bank</label>
                     <div class="select-wrap">
                         <select name="nama_bank" id="bank_select" onchange="toggleRekening()" required>
-                            <option value="BCA" selected>BCA (Bank Central Asia)</option>
+                            <option value="BCA">BCA (Bank Central Asia)</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="field field-hidden" id="rekening_container">
+                <div class="field" id="rekening_container">
                     <label>Nomor Rekening</label>
                     <input type="number" name="nomor_rekening" id="nomor_rekening" required
                         placeholder="Pilih bank terlebih dahulu...">

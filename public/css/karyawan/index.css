@@ -224,44 +224,65 @@
             letter-spacing: 0.04em;
             color: #A5B4FC;
         }
+        /* ── KOTAK DASAR BADGE STATUS ── */
+            .badge-status {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                border-radius: 100px;
+                padding: 3px 10px;
+                font-size: 10px;
+                font-weight: 500;
+            }
 
-        .badge-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            border-radius: 100px;
-            padding: 3px 10px;
-            font-size: 10px;
-            font-weight: 500;
+            .badge-status .dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+            }
+
+/* ── 1. STATUS TETAP (HIJAU) ── */
+            .status-tetap {
+                background: rgba(74, 222, 128, 0.1);
+                border: 1px solid rgba(74, 222, 128, 0.2);
+                color: #4ADE80;
+            }
+            .status-tetap .dot {
+                background: #4ADE80;
+                box-shadow: 0 0 6px rgba(74, 222, 128, 0.4);
+            }
+
+            /* ── 2. STATUS KONTRAK (ORANYE) ── */
+            .status-kontrak {
+                background: rgba(251, 191, 36, 0.1);
+                border: 1px solid rgba(251, 191, 36, 0.2);
+                color: #FBBF24;
+            }
+            .status-kontrak .dot {
+                background: #FBBF24;
+                box-shadow: 0 0 6px rgba(251, 191, 36, 0.4);
+            }
+
+            /* ── 3. STATUS MAGANG (BIRU) ── */
+            .status-magang {
+                background: rgba(96, 165, 250, 0.1);
+                border: 1px solid rgba(96, 165, 250, 0.2);
+                color: #60A5FA;
+            }
+            .status-magang .dot {
+                background: #60A5FA;
+                box-shadow: 0 0 6px rgba(96, 165, 250, 0.4);
+            }
+
+            /* ── 4. STATUS DEFAULT (ABU-ABU) ── */
+            .status-default {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                color: #A1A1AA;
+            }
+            .status-default .dot {
+                background: #A1A1AA;
         }
-
-        .badge-status::before {
-            content: '';
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-        }
-
-        .badge-status.aktif {
-            background: rgba(3, 255, 95, 0.1);
-            border: 1px solid rgba(74, 222, 128, 0.2);
-            color: #4ADE80;
-        }
-
-        .badge-status.aktif::before {
-            background: #4ADE80;
-        }
-
-        .badge-status.nonaktif {
-            background: rgba(240, 237, 230, 0.06);
-            border: 1px solid rgba(240, 237, 230, 0.1);
-            color: var(--text-muted);
-        }
-
-        .badge-status.nonaktif::before {
-            background: var(--text-muted);
-        }
-
         /* ── Salary ── */
         .td-salary {
             font-family: 'Cormorant Garant', serif;

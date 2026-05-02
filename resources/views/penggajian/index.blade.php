@@ -38,7 +38,16 @@
 
     {{-- ── Table card ── --}}
     <div class="kry-card">
-        <p class="section-label">Riwayat Penggajian Karyawan</p>
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border);">
+            <p class="section-label" style="margin-bottom: 0; padding-bottom: 0; border-bottom: none;">Riwayat
+                Penggajian Karyawan</p>
+            <form action="{{ route('penggajian.index') }}" method="GET" id="form-filter-periode">
+                <input type="month" name="filter_periode" value="{{ request('filter_periode', date('Y-m')) }}"
+                    onchange="document.getElementById('form-filter-periode').submit();"
+                    style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #F0EDE6; padding: 4px 8px; font-size: 11px; outline: none; color-scheme: dark; cursor: pointer;">
+            </form>
+        </div>
         <table class="kry-table">
             <thead>
                 <tr>
@@ -56,7 +65,8 @@
                         <td class="td-period">{{ $gaji->periode }}</td>
                         <td>{{ $gaji->karyawan->nama_karyawan ?? 'Data Terhapus' }}</td>
                         <td class="td-income">
-                            Rp {{ number_format($gaji->gaji_pokok_saat_ini + $gaji->total_tunjangan, 0, ',', '.') }}
+                            Rp
+                            {{ number_format($gaji->gaji_pokok_saat_ini + $gaji->total_tunjangan, 0, ',', '.') }}
                         </td>
                         <td class="td-deduct">
                             - Rp {{ number_format($gaji->total_potongan, 0, ',', '.') }}
