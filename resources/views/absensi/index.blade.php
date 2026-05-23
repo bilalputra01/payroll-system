@@ -48,13 +48,26 @@
                         required>
                 </div>
 
-            </div>
+                <div class="field">
+                    <label>Jumlah Izin</label>
+                    <input type="number" name="jumlah_izin" placeholder="Misal: 2" min="0" max="31"
+                        required>
+                </div>
 
-            <div class="kry-grid-2">
+                <div class="field">
+                    <label>Jumlah Alpa</label>
+                    <input type="number" name="jumlah_tidak_hadir" placeholder="Misal: 2" min="0" max="31"
+                        required>
+                </div>
+
                 <div class="field">
                     <label>Jam Lembur</label>
                     <input type="number" name="jam_lembur" placeholder="0" min="0">
                 </div>
+
+            </div>
+
+            <div class="kry-grid-2">
             </div>
 
             <hr class="kry-divider">

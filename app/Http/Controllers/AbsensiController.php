@@ -54,6 +54,9 @@ class AbsensiController extends Controller
             'periode' => $request->periode,
             'jumlah_hadir' => $request->jumlah_hadir,
             'jumlah_telat' => $request->jumlah_telat,
+            'jam_lembur' => $request->jam_lembur,
+            'jumlah_tidak_hadir' => $request->jumlah_tidak_hadir,
+            'jumlah_izin' => $request->jumlah_izin,
         ]);
 
         // 4. KEMBALI DENGAN PESAN SUKSES

@@ -31,7 +31,7 @@
             </div>
 
             <div class="panel-left-main">
-                <h1>Masuk ke<br><em>Sistem</em><br>Anda.</h1>
+                <h1>PT. Teknologi <br><em>Masa Depan</em></h1>
                 <p class="subtitle">Gunakan kredensial resmi Anda untuk mengakses portal HRIS & Payroll perusahaan
                     dengan aman.</p>
             </div>

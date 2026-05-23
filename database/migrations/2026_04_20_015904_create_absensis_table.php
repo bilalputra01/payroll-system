@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('nik');
             $table->foreign('nik')->references('nik')->on('karyawan')->cascadeOnDelete();
             $table->string('periode'); // Format: YYYY-MM
-            $table->integer('jumlah_hadir');
-            $table->integer('jumlah_telat');
+            $table->integer('jumlah_hadir')->default(0);
+            $table->integer('jumlah_tidak_hadir')->default(0);
+            $table->integer('jumlah_izin')->default(0);
+            $table->integer('jumlah_telat')->default(0);
             $table->integer('jam_lembur')->default(0); // Langsung ada di sini
             $table->timestamps();
         });

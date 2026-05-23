@@ -68,6 +68,8 @@ class PenggajianController extends Controller
 
             // 2. Potongan Absensi
             $potongan_telat = $absen->jumlah_telat * 50000;
+            $potongan_tidak_hadir = $absen->jumlah_tidak_hadir * 100000;
+            $potongan_izin = $absen->jumlah_izin * 25000;
 
             // 3. Potongan BPJS (Karyawan)
             $bpjs_kes = min($upah_tetap, 12000000) * 0.01;
@@ -80,7 +82,7 @@ class PenggajianController extends Controller
             $pph21 = $pkp_sebulan * 0.05;
 
             // 5. Total & Simpan
-            $total_potongan = $potongan_telat + $bpjs_kes + $bpjs_tk + $pph21;
+            $total_potongan = $potongan_telat + $potongan_tidak_hadir + $potongan_izin + $uang_lembur + $bpjs_kes + $bpjs_tk + $pph21;
 
             \App\Models\Penggajian::updateOrCreate(
                 // 6. Simpan ke database dengan kunci 'nik' dan 'periode'
@@ -105,10 +107,7 @@ class PenggajianController extends Controller
      */
     public function show(Penggajian $penggajian)
     {
-        // Berkat fitur Route Model Binding, kita tidak perlu mencari data manual.
-        // Laravel sudah tahu ID penggajian mana yang diklik!
 
-        // Kita panggil relasi karyawan dan jabatan agar datanya lengkap di slip gaji
         $penggajian->load('karyawan.jabatan');
 
         return view('penggajian.show', compact('penggajian'));

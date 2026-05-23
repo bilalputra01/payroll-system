@@ -54,6 +54,9 @@
                             {{ number_format($penggajian->total_tunjangan, 0, ',', '.') }}</span></div>
                     <div class="flex justify-between"><span>Uang Lembur</span> <span>Rp
                             {{ number_format($penggajian->uang_lembur, 0, ',', '.') }}</span></div>
+                    <div class="flex justify-between"><span>Pendapatan Gaji + Tunjangan</span> <span>Rp
+                            {{ number_format($penggajian->gaji_pokok_saat_ini + $penggajian->total_tunjangan, 0, ',', '.') }}</span>
+                    </div>
                 </div>
             </div>
 
@@ -69,6 +72,9 @@
                             {{ number_format($penggajian->bpjs_ketenagakerjaan, 0, ',', '.') }}</span></div>
                     <div class="flex justify-between"><span>PPh 21</span> <span>- Rp
                             {{ number_format($penggajian->pph21, 0, ',', '.') }}</span></div>
+                    <div class="flex justify-between"><span>Total Potongan</span> <span>Rp
+                            {{ number_format($penggajian->total_potongan, 0, ',', '.') }}</span>
+                    </div>
                 </div>
             </div>
         </div>

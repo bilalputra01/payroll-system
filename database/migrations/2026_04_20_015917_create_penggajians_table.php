@@ -24,6 +24,7 @@ return new class extends Migration
             $table->decimal('bpjs_ketenagakerjaan', 15, 2)->default(0);
             $table->decimal('pph21', 15, 2)->default(0);
             $table->decimal('gaji_bersih', 15, 2);
+
             $table->timestamps();
         });
     }
