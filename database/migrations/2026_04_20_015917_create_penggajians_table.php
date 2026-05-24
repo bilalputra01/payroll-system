@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('total_tunjangan', 15, 2);
             $table->decimal('uang_lembur', 15, 2)->default(0);
             $table->decimal('total_potongan', 15, 2);
+            $table->integer('potongan_absensi')->default(0);
             $table->decimal('bpjs_kesehatan', 15, 2)->default(0);
             $table->decimal('bpjs_ketenagakerjaan', 15, 2)->default(0);
             $table->decimal('pph21', 15, 2)->default(0);

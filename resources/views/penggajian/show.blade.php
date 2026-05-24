@@ -48,31 +48,31 @@
             <div>
                 <h3 class="font-bold text-gray-800 border-b border-gray-400 mb-2">PENERIMAAN</h3>
                 <div class="space-y-1 text-sm">
-                    <div class="flex justify-between"><span>Gaji Pokok</span> <span>Rp
+                    <div class="flex justify-between"><span>Gaji Pokok</span> <span class=" text-green-600">Rp
                             {{ number_format($penggajian->gaji_pokok_saat_ini, 0, ',', '.') }}</span></div>
-                    <div class="flex justify-between"><span>Tunjangan</span> <span>Rp
+                    <div class="flex justify-between"><span>Tunjangan</span> <span class=" text-green-600">Rp
                             {{ number_format($penggajian->total_tunjangan, 0, ',', '.') }}</span></div>
-                    <div class="flex justify-between"><span>Uang Lembur</span> <span>Rp
+                    <div class="flex justify-between"><span>Uang Lembur</span> <span class=" text-green-600">Rp
                             {{ number_format($penggajian->uang_lembur, 0, ',', '.') }}</span></div>
-                    <div class="flex justify-between"><span>Pendapatan Gaji + Tunjangan</span> <span>Rp
-                            {{ number_format($penggajian->gaji_pokok_saat_ini + $penggajian->total_tunjangan, 0, ',', '.') }}</span>
+                    <div class="flex justify-between"><span>Total Gaji</span> <span class=" text-green-600">Rp
+                            {{ number_format($penggajian->gaji_pokok_saat_ini + $penggajian->total_tunjangan + $penggajian->uang_lembur, 0, ',', '.') }}</span>
                     </div>
                 </div>
             </div>
 
             <div>
                 <h3 class="font-bold text-gray-800 border-b border-gray-400 mb-2">POTONGAN</h3>
-                <div class="space-y-1 text-sm text-red-600">
-                    <div class="flex justify-between"><span>Absensi/Telat</span> <span>- Rp
-                            {{ number_format($penggajian->total_potongan - ($penggajian->bpjs_kesehatan + $penggajian->bpjs_ketenagakerjaan + $penggajian->pph21), 0, ',', '.') }}</span>
+                <div class="space-y-1 text-sm">
+                    <div class="flex justify-between"><span>Potongan Kehadiran</span> <span class=" text-red-600">- Rp
+                            {{ number_format($penggajian->potongan_absensi, 0, ',', '.') }}</span>
                     </div>
-                    <div class="flex justify-between"><span>BPJS Kesehatan</span> <span>- Rp
+                    <div class="flex justify-between"><span>BPJS Kesehatan</span> <span class=" text-red-600">- Rp
                             {{ number_format($penggajian->bpjs_kesehatan, 0, ',', '.') }}</span></div>
-                    <div class="flex justify-between"><span>BPJS Ketenagakerjaan</span> <span>- Rp
+                    <div class="flex justify-between"><span>BPJS Ketenagakerjaan</span> <span class=" text-red-600">- Rp
                             {{ number_format($penggajian->bpjs_ketenagakerjaan, 0, ',', '.') }}</span></div>
-                    <div class="flex justify-between"><span>PPh 21</span> <span>- Rp
+                    <div class="flex justify-between"><span>PPh 21</span> <span class=" text-red-600">- Rp
                             {{ number_format($penggajian->pph21, 0, ',', '.') }}</span></div>
-                    <div class="flex justify-between"><span>Total Potongan</span> <span>Rp
+                    <div class="flex justify-between"><span>Total Potongan</span> <span class=" text-red-600">Rp
                             {{ number_format($penggajian->total_potongan, 0, ',', '.') }}</span>
                     </div>
                 </div>
@@ -80,9 +80,19 @@
         </div>
 
         <div class="border-t-2 border-gray-800 pt-4 mb-8">
-            <div class="flex justify-between text-lg font-bold">
-                <span>TOTAL DITERIMA (TAKE HOME PAY)</span>
-                <span class="text-green-600">Rp {{ number_format($penggajian->gaji_bersih, 0, ',', '.') }}</span>
+            <div class="flex justify-between items-center text-lg font-bold">
+                <span>Total Diterima </span>
+
+                <div class="flex items-center gap-3">
+                    <div class="font-mono-data text-[12px]">
+                        (<span class=" text-green-600">Rp
+                            {{ number_format($penggajian->gaji_pokok_saat_ini + $penggajian->total_tunjangan + $penggajian->uang_lembur, 0, ',', '.') }}</span>
+                        <span class=" text-red-600">- Rp
+                            {{ number_format($penggajian->total_potongan, 0, ',', '.') }}</span>)
+                    </div>
+                    <span class="text-green-600">Rp {{ number_format($penggajian->gaji_bersih, 0, ',', '.') }}</span>
+                </div>
+
             </div>
         </div>
 

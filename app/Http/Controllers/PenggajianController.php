@@ -71,6 +71,8 @@ class PenggajianController extends Controller
             $potongan_tidak_hadir = $absen->jumlah_tidak_hadir * 100000;
             $potongan_izin = $absen->jumlah_izin * 25000;
 
+            $total_denda_absen = $potongan_izin + $potongan_telat + $potongan_tidak_hadir;
+
             // 3. Potongan BPJS (Karyawan)
             $bpjs_kes = min($upah_tetap, 12000000) * 0.01;
             $bpjs_tk = ($upah_tetap * 0.02) + (min($upah_tetap, 10042300) * 0.01);
@@ -82,7 +84,7 @@ class PenggajianController extends Controller
             $pph21 = $pkp_sebulan * 0.05;
 
             // 5. Total & Simpan
-            $total_potongan = $potongan_telat + $potongan_tidak_hadir + $potongan_izin + $uang_lembur + $bpjs_kes + $bpjs_tk + $pph21;
+            $total_potongan = $total_denda_absen + $bpjs_kes + $bpjs_tk + $pph21;
 
             \App\Models\Penggajian::updateOrCreate(
                 // 6. Simpan ke database dengan kunci 'nik' dan 'periode'
@@ -92,10 +94,12 @@ class PenggajianController extends Controller
                     'total_tunjangan' => $tunjangan,
                     'uang_lembur' => $uang_lembur,
                     'total_potongan' => $total_potongan,
+                    'potongan_absensi' => $total_denda_absen,
                     'bpjs_kesehatan' => $bpjs_kes,
                     'bpjs_ketenagakerjaan' => $bpjs_tk,
                     'pph21' => $pph21,
                     'gaji_bersih' => $bruto - $total_potongan,
+
                 ]
             );
         }
