@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <link rel="stylesheet" href="{{ asset('css/absensi/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/absensi/index.css?v=' . time()) }}">
 
     {{-- ── Page header ── --}}
     <div class="kry-header">
@@ -8,6 +8,27 @@
             <p class="kry-eyebrow">Manajemen SDM</p>
             <h2 class="kry-title">Kelola Data <em>Absensi</em> Karyawan</h2>
         </div>
+    </div>
+
+    <div class="kry-card" style="margin-bottom: 1.5rem;">
+        <p class="section-label">Import Data Absensi</p>
+
+        <form action="{{ route('absensi.import') }}" method="POST" enctype="multipart/form-data"
+            style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+            @csrf
+            <div class="field" style="flex: 1; min-width: 250px; margin-bottom: 0;">
+                <input type="file" name="file_excel" accept=".xlsx, .xls, .csv" required
+                    style="width: 100%; padding: 0.5rem; border: 1px dashed #cbd5e1; border-radius: 0.5rem;; cursor: pointer;">
+            </div>
+
+            <button type="submit" class="btn-upload">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                </svg>
+                Upload Excel
+            </button>
+        </form>
     </div>
 
     {{-- ── Form card ── --}}
@@ -37,7 +58,7 @@
                 </div>
 
                 <div class="field">
-                    <label>Hari Hadir</label>
+                    <label>Jumlah Hadir</label>
                     <input type="number" name="jumlah_hadir" placeholder="Misal: 20" min="0" max="31"
                         required>
                 </div>

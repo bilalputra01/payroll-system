@@ -3,6 +3,7 @@
 
 namespace App\Exports;
 
+use App\Models\Absensi;
 use App\Models\Penggajian;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -45,10 +46,15 @@ class PenggajianExport implements FromCollection, WithHeadings, WithMapping
             'Nama Karyawan',
             'Jabatan',
             'Periode',
+            'Jumlah Telat',
+            'Jumlah Alpa',
+            'Jumlah Izin',
+            'Jam Lembur',
+            'Uang Lembur',
             'Gaji Pokok',
             'Tunjangan',
-            'Uang Lembur',
-            'Potongan BPJS & Telat',
+            'Potongan Absensi',
+            'Total Potongan',
             'Gaji Bersih (Take Home Pay)'
 
         ];
@@ -64,23 +70,35 @@ class PenggajianExport implements FromCollection, WithHeadings, WithMapping
                 '', // Nama kosong
                 '', // Jabatan kosong
                 '', // Periode kosong
+                '', // 
+                '', //
+                '', // 
+                '', // 
                 '', // Gaji Pokok kosong
                 '', // Tunjangan kosong
+                '', // 
                 '', // Lembur kosong
                 'TOTAL PENGELUARAN:',      // Muncul di kolom H (Potongan BPJS & Telat)
                 $penggajian->total_angka   // Muncul di kolom I (Gaji Bersih)
             ];
         }
-
+        $absensi = Absensi::where('nik', $penggajian->nik)
+            ->where('periode', $penggajian->periode)
+            ->first();
         // Jika BUKAN baris total (berarti ini data karyawan asli), cetak seperti biasa
         return [
             $penggajian->nik,
             $penggajian->karyawan ? $penggajian->karyawan->nama_karyawan : 'Data Karyawan Dihapus',
             $penggajian->karyawan && $penggajian->karyawan->jabatan ? $penggajian->karyawan->jabatan->nama_jabatan : '-',
             $penggajian->periode,
+            $absensi ? $absensi->jumlah_telat : 0,
+            $absensi ? $absensi->jumlah_tidak_hadir : 0,
+            $absensi ? $absensi->jumlah_izin : 0,
+            $absensi ? $absensi->jam_lembur : 0,
+            $penggajian->uang_lembur,
             $penggajian->gaji_pokok_saat_ini,
             $penggajian->total_tunjangan,
-            $penggajian->uang_lembur,
+            $penggajian->potongan_absensi,
             $penggajian->total_potongan,
             $penggajian->gaji_bersih,
         ];

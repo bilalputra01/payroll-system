@@ -24,6 +24,7 @@ Route::middleware(['auth', 'can:admin'])->group(function () {
     Route::resource('jabatan', JabatanController::class);
     Route::resource('karyawan', KaryawanController::class);
     Route::resource('absensi', AbsensiController::class);
+    Route::post('/absensi/import', [\App\Http\Controllers\AbsensiController::class, 'importExcel'])->name('absensi.import');
     // hanya bisa diakses karyawan
     Route::get('/penggajian', [PenggajianController::class, 'index'])->name('penggajian.index');
     Route::post('/penggajian', [PenggajianController::class, 'store'])->name('penggajian.store');

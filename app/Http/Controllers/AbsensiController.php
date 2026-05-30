@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Absensi;
 use Illuminate\Http\Request;
+use App\Imports\AbsensiImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AbsensiController extends Controller
 {
@@ -35,6 +37,9 @@ class AbsensiController extends Controller
             'periode' => 'required',
             'jumlah_hadir' => 'required|numeric|min:0|max:31',
             'jumlah_telat' => 'required|numeric|min:0|max:31',
+            'jumlah_izin' => 'required|numeric|min:0|max:31',
+            'jumlah_tidak_hadir' => 'required|numeric|min:0|max:31',
+            'jam_lembur' => 'required|numeric|min:0',
         ]);
 
 
@@ -93,5 +98,26 @@ class AbsensiController extends Controller
     public function destroy(Absensi $absensi)
     {
         //
+    }
+
+    public function importExcel(Request $request)
+    {
+        // Validasi file yang diupload harus berupa Excel/CSV
+        $request->validate([
+            'file_excel' => 'required|mimes:xlsx,xls,csv|max:2048'
+        ], [
+            'file_excel.required' => 'Pilih file Excel terlebih dahulu!',
+            'file_excel.mimes' => 'Format file harus .xlsx atau .xls'
+        ]);
+
+        try {
+            // Eksekusi import
+            Excel::import(new AbsensiImport, $request->file('file_excel'));
+
+            return redirect()->back()->with('success', 'Data absensi massal berhasil diimpor!');
+        } catch (\Exception $e) {
+            // Tangkap jika ada error dari sistem Excel
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 }
