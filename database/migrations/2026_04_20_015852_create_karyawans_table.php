@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('nama_bank');
             $table->string('nomor_rekening');
-            $table->string('status'); // Tambahkan ini: Tetap, Kontrak, atau Magang
+            $table->string('status');
             $table->timestamps();
         });
     }

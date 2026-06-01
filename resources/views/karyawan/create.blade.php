@@ -20,11 +20,10 @@
             <div class="kry-grid">
 
                 <div class="field">
-                    <label>NIK Karyawan</label>
-                    <input type="text" name="nik" required oninput="formatNIK(this)" placeholder="Cth: EMP-001">
-                    @error('nik')
-                        <span class="field-error">{{ $message }}</span>
-                    @enderror
+                    <label>NIK</label>
+                    <input type="text" name="nik" value="{{ $nik_otomatis }}" readonly
+                        style="background-color: #334155; color: #94a3b8; cursor: not-allowed; border-color: #475569;"
+                        required>
                 </div>
 
                 <div class="field">

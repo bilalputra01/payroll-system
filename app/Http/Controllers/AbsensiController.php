@@ -114,7 +114,7 @@ class AbsensiController extends Controller
             // Eksekusi import
             Excel::import(new AbsensiImport, $request->file('file_excel'));
 
-            return redirect()->back()->with('success', 'Data absensi massal berhasil diimpor!');
+            return redirect()->back()->with('success', 'Data absensi Berhasil Diupload');
         } catch (\Exception $e) {
             // Tangkap jika ada error dari sistem Excel
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());

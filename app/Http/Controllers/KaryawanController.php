@@ -25,8 +25,15 @@ class KaryawanController extends Controller
     public function create()
     {
         $jabatan = \App\Models\Jabatan::all();
-
-        return view('karyawan.create', compact('jabatan'));
+        $nik_terakhir = \App\Models\Karyawan::orderBy('nik', 'desc')->first();
+        if ($nik_terakhir) {
+            $angka_terakhir = (int) substr($nik_terakhir->nik, 4);
+            $nik_baru = $angka_terakhir + 1;
+        } else {
+            $nik_baru = 1;
+        }
+        $nik_otomatis = 'KRY-' . str_pad($nik_baru, 3, '0', STR_PAD_LEFT);
+        return view('karyawan.create', compact('jabatan', 'nik_otomatis'));
     }
 
     /**

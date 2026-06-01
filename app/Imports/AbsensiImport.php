@@ -20,7 +20,7 @@ class AbsensiImport implements ToCollection, WithHeadingRow
             // Gunakan updateOrCreate agar tidak error jika ada data ganda (otomatis tertimpa yang baru)
             Absensi::updateOrCreate(
                 [
-                    'nik' => $row['nik'],
+                    'NIK' => $row['nik'],
                     'periode' => $row['periode'],
                 ],
                 [
