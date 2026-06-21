@@ -117,7 +117,7 @@ class AbsensiController extends Controller
             return redirect()->back()->with('success', 'Data absensi Berhasil Diupload');
         } catch (\Exception $e) {
             // Tangkap jika ada error dari sistem Excel
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan:coba periksa kembali file yang diupload ');
         }
     }
 }

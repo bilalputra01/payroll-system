@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('gaji_pokok_saat_ini', 15, 2);
             $table->decimal('total_tunjangan', 15, 2);
             $table->decimal('uang_lembur', 15, 2)->default(0);
+            $table->decimal('thr', 15, 2)->default(0);
             $table->decimal('potongan_telat')->default(0);
             $table->decimal('potongan_tidak_hadir')->default(0);
             $table->decimal('potongan_izin')->default(0);
@@ -38,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penggajians');
+        Schema::dropIfExists('penggajian');
     }
 };

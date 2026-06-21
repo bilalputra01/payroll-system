@@ -4,6 +4,7 @@
 namespace App\Exports;
 
 use App\Models\Absensi;
+use App\Models\Karyawan;
 use App\Models\Penggajian;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -78,19 +79,19 @@ class PenggajianExport implements FromCollection, WithHeadings, WithMapping
                 '', // Tunjangan kosong
                 '', // 
                 '', // Lembur kosong
-                'TOTAL PENGELUARAN:',      // Muncul di kolom H (Potongan BPJS & Telat)
-                $penggajian->total_angka   // Muncul di kolom I (Gaji Bersih)
+                'TOTAL PENGELUARAN:',
+                $penggajian->total_angka
             ];
         }
         $absensi = Absensi::where('nik', $penggajian->nik)
             ->where('periode', $penggajian->periode)
             ->first();
+
         // Jika BUKAN baris total (berarti ini data karyawan asli), cetak seperti biasa
         return [
             $penggajian->nik,
             $penggajian->karyawan ? $penggajian->karyawan->nama_karyawan : 'Data Karyawan Dihapus',
             $penggajian->karyawan && $penggajian->karyawan->jabatan ? $penggajian->karyawan->jabatan->nama_jabatan : '-',
-            $penggajian->periode,
             $absensi ? $absensi->jumlah_telat : 0,
             $absensi ? $absensi->jumlah_tidak_hadir : 0,
             $absensi ? $absensi->jumlah_izin : 0,

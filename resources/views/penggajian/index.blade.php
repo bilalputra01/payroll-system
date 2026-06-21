@@ -12,11 +12,10 @@
 
     {{-- ── Toolbar card ── --}}
     <div class="kry-card">
-        <p class="section-label">Periode & Aksi</p>
         <form action="{{ route('penggajian.store') }}" method="POST" class="toolbar">
             @csrf
             <div class="field">
-                <label>Pilih Periode Hitung</label>
+                <label>Pilih Periode </label>
                 <input type="month" name="periode" value="{{ request('periode') }}" required>
             </div>
             <button type="submit" class="btn-hitung">
@@ -24,7 +23,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-                Hitung Gaji Massal
+                Hitung Gaji
             </button>
             <button type="button" class="btn-export" onclick="downloadLaporan()">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,6 +32,13 @@
                 </svg>
                 Download Laporan Excel
             </button>
+            <div class="field-checkbox">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" name="is_thr" id="is_thr" value="1" class="kry-checkbox">
+                    <span class="checkmark"></span>
+                    <span class="label-text"> THR </span>
+                </label>
+            </div>
         </form>
     </div>
 

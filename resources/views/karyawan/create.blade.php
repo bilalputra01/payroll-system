@@ -54,6 +54,9 @@
                     <label>Nomor Rekening</label>
                     <input type="number" name="nomor_rekening" id="nomor_rekening" required
                         placeholder="Pilih bank terlebih dahulu...">
+                    @error('nomor_rekening')
+                        <span class="field-error">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="field">

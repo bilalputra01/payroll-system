@@ -49,7 +49,7 @@ class KaryawanController extends Controller
             'status' => 'required|in:Tetap,Kontrak,Magang',
             'jabatan_id' => 'required',
             'nama_bank' => 'required|in:BCA',
-            'nomor_rekening' => 'required|string|max:50',
+            'nomor_rekening' => 'required|numeric|unique:karyawan,nomor_rekening|max_digits:50',
         ]);
 
         // 2. Simpan Data Karyawan (Termasuk Bank & Rekening)

@@ -47,16 +47,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $data_karyawan = [
-            ['nik' => 'KRY-001', 'nama' => 'Bilal Putra Wibowo', 'email' => 'bilal@perusahaan.com', 'status' => 'Tetap',  'jabatan_id' => $jabatan_fsd->id],
-            ['nik' => 'KRY-002', 'nama' => 'Andi Susanto', 'email' => 'andi@perusahaan.com', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_it->id],
-            ['nik' => 'KRY-003', 'nama' => 'Budi Prakoso', 'email' => 'budi@perusahaan.com', 'status' => 'Tetap', 'jabatan_id' => $jabatan_finance->id],
-            ['nik' => 'KRY-004', 'nama' => 'Citra Lestari', 'email' => 'citra@perusahaan.com', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_hr->id],
-            ['nik' => 'KRY-005', 'nama' => 'Dewi Sartika', 'email' => 'dewi@perusahaan.com', 'status' => 'Tetap', 'jabatan_id' => $jabatan_dm->id],
-            ['nik' => 'KRY-006', 'nama' => 'Eko Prasetyo', 'email' => 'eko@perusahaan.com', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_it->id],
-            ['nik' => 'KRY-007', 'nama' => 'Fajar Nugraha', 'email' => 'fajar@perusahaan.com', 'status' => 'Tetap', 'jabatan_id' => $jabatan_finance->id],
-            ['nik' => 'KRY-008', 'nama' => 'Gita Gutawa', 'email' => 'gita@perusahaan.com', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_dm->id],
-            ['nik' => 'KRY-009', 'nama' => 'Hadi Sucipto', 'email' => 'hadi@perusahaan.com', 'status' => 'Tetap', 'jabatan_id' => $jabatan_it->id],
-            ['nik' => 'KRY-010', 'nama' => 'Indah Permatasari', 'email' => 'indah@perusahaan.com', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_fsd->id],
+            ['nik' => 'KRY-001', 'nama' => 'Bilal Putra Wibowo', 'email' => 'bilal@perusahaan.com', 'nomor_rekening' => '1234567891', 'status' => 'Tetap',  'jabatan_id' => $jabatan_fsd->id],
+            ['nik' => 'KRY-002', 'nama' => 'Andi Susanto', 'email' => 'andi@perusahaan.com', 'nomor_rekening' => '1234567892', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_it->id],
+            ['nik' => 'KRY-003', 'nama' => 'Budi Prakoso', 'email' => 'budi@perusahaan.com', 'nomor_rekening' => '1234567893', 'status' => 'Tetap', 'jabatan_id' => $jabatan_finance->id],
+            ['nik' => 'KRY-004', 'nama' => 'Citra Lestari', 'email' => 'citra@perusahaan.com', 'nomor_rekening' => '1234567894', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_hr->id],
+            ['nik' => 'KRY-005', 'nama' => 'Dewi Sartika', 'email' => 'dewi@perusahaan.com', 'nomor_rekening' => '1234567895', 'status' => 'Tetap', 'jabatan_id' => $jabatan_dm->id],
+            ['nik' => 'KRY-006', 'nama' => 'Eko Prasetyo', 'email' => 'eko@perusahaan.com', 'nomor_rekening' => '1234567896', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_it->id],
+            ['nik' => 'KRY-007', 'nama' => 'Fajar Nugraha', 'email' => 'fajar@perusahaan.com', 'nomor_rekening' => '1234567897', 'status' => 'Tetap', 'jabatan_id' => $jabatan_finance->id],
+            ['nik' => 'KRY-008', 'nama' => 'Gita Gutawa', 'email' => 'gita@perusahaan.com', 'nomor_rekening' => '1234567898', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_dm->id],
+            ['nik' => 'KRY-009', 'nama' => 'Hadi Sucipto', 'email' => 'hadi@perusahaan.com', 'nomor_rekening' => '1234567899', 'status' => 'Tetap', 'jabatan_id' => $jabatan_it->id],
+            ['nik' => 'KRY-010', 'nama' => 'Indah Permatasari', 'email' => 'indah@perusahaan.com', 'nomor_rekening' => '1234567890', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_fsd->id],
         ];
 
         foreach ($data_karyawan as $data) {
@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
                 'status' => $data['status'],
                 'jabatan_id' => $data['jabatan_id'],
                 'nama_bank' => 'BCA',
-                'nomor_rekening' => '1234567890',
+                'nomor_rekening' => $data['nomor_rekening'],
             ]);
 
             $username = strtolower(explode(' ', $data['nama'])[0]);

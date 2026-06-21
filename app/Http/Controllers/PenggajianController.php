@@ -60,7 +60,7 @@ class PenggajianController extends Controller
             $gapok = $absen->karyawan->jabatan->gaji_pokok;
             $tunjangan = $absen->karyawan->jabatan->tunjangan_tetap;
             $upah_tetap = $gapok + $tunjangan;
-
+            $thr = $request->has('is_thr') ? $upah_tetap : 0;
             // 1. Hitung Lembur (PP 35/2021)
             $upah_sejam = $upah_tetap / 173;
             $jam = $absen->jam_lembur;
@@ -78,10 +78,11 @@ class PenggajianController extends Controller
             $bpjs_tk = ($upah_tetap * 0.02) + (min($upah_tetap, 10042300) * 0.01);
 
             // 4. Estimasi PPh 21 (Sederhana)
-            $bruto = $upah_tetap + $uang_lembur;
+            $bruto = $upah_tetap + $uang_lembur + $thr;
             $biaya_jabatan = min($bruto * 0.05, 500000);
             $pkp_sebulan = max(0, ($bruto - $biaya_jabatan - $bpjs_tk) - 4500000);
             $pph21 = $pkp_sebulan * 0.05;
+
 
             // 5. Total & Simpan
             $total_potongan = $total_denda_absen + $bpjs_kes + $bpjs_tk + $pph21;
@@ -93,6 +94,7 @@ class PenggajianController extends Controller
                     'gaji_pokok_saat_ini' => $gapok,
                     'total_tunjangan' => $tunjangan,
                     'uang_lembur' => $uang_lembur,
+                    'thr' => $thr,
                     // 'potongan_telat' => $potongan_telat,
                     // 'potongan_tidak_hadir' => $potongan_tidak_hadir,
                     // 'potongan_izin' => $potongan_izin,
@@ -152,7 +154,12 @@ class PenggajianController extends Controller
         ], [
             'periode.required' => 'Pilih bulan/periode terlebih dahulu untuk mencetak Excel!'
         ]);
+        $data_absensi = \App\Models\Absensi::with('karyawan.jabatan')
+            ->where('periode', $request->periode)->get();
 
+        if ($data_absensi->isEmpty()) {
+            return redirect()->back()->with('error', 'Gagal! Belum ada data absensi untuk periode tersebut.');
+        }
         $periode = $request->periode;
         $nama_file = 'Laporan_Payroll_' . $periode . '.xlsx';
 

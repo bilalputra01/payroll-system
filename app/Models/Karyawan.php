@@ -25,11 +25,20 @@ class Karyawan extends Model
         // Artinya: Setiap 1 Karyawan "dimiliki oleh" (belongs to) 1 Jabatan
         return $this->belongsTo(Jabatan::class, 'jabatan_id');
     }
-
-    public function bank() {}
-
     public function user()
     {
         return $this->hasOne(User::class, 'nik');
     }
+
+    public function absensi()
+    {
+        return $this->hasMany(Absensi::class, 'nik', 'nik');
+    }
+
+    public function penggajian()
+    {
+        return $this->hasMany(Penggajian::class, 'nik', 'nik');
+    }
+
+    public function bank() {}
 }

@@ -3,21 +3,36 @@
 namespace App\Imports;
 
 use App\Models\Absensi;
+use App\Models\Karyawan;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Exception;
 
 class AbsensiImport implements ToCollection, WithHeadingRow
 {
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            // Validasi: Abaikan baris jika NIK atau Periode kosong
+
             if (!isset($row['nik']) || !isset($row['periode'])) {
                 continue;
             }
 
-            // Gunakan updateOrCreate agar tidak error jika ada data ganda (otomatis tertimpa yang baru)
+            $cek_karyawan = Karyawan::where('nik', $row['nik'])->first();
+            if (!$cek_karyawan) {
+                continue;
+            }
+
+            $absen_duplikat = Absensi::where('nik', $row['nik'])
+                ->where('periode', $row['periode'])
+                ->first();
+
+            if ($absen_duplikat) {
+                $error = strtoupper(($row['nik']));
+                throw new Exception("Terdeteksi duplikat");
+            }
+
             Absensi::updateOrCreate(
                 [
                     'NIK' => $row['nik'],
@@ -27,7 +42,7 @@ class AbsensiImport implements ToCollection, WithHeadingRow
                     'jumlah_hadir' => $row['jumlah_hadir'] ?? 0,
                     'jumlah_telat' => $row['jumlah_telat'] ?? 0,
                     'jam_lembur' => $row['jam_lembur'] ?? 0,
-                    'jumlah_tidak_hadir' => $row['jumlah_alpa'] ?? 0, // Di excel kita namakan jumlah_alpa
+                    'jumlah_tidak_hadir' => $row['jumlah_alpa'] ?? 0,
                     'jumlah_izin' => $row['jumlah_izin'] ?? 0,
                 ]
             );

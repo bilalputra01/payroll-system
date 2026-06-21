@@ -52,10 +52,14 @@
                             {{ number_format($penggajian->gaji_pokok_saat_ini, 0, ',', '.') }}</span></div>
                     <div class="flex justify-between"><span>Tunjangan</span> <span class=" text-green-600">Rp
                             {{ number_format($penggajian->total_tunjangan, 0, ',', '.') }}</span></div>
+                    @if ($penggajian->thr > 0)
+                        <div class="flex justify-between"><span>Thr</span> <span class=" text-green-600">Rp
+                                {{ number_format($penggajian->thr, 0, ',', '.') }}</span></div>
+                    @endif
                     <div class="flex justify-between"><span>Uang Lembur</span> <span class=" text-green-600">Rp
                             {{ number_format($penggajian->uang_lembur, 0, ',', '.') }}</span></div>
                     <div class="flex justify-between"><span>Total Gaji</span> <span class=" text-green-600">Rp
-                            {{ number_format($penggajian->gaji_pokok_saat_ini + $penggajian->total_tunjangan + $penggajian->uang_lembur, 0, ',', '.') }}</span>
+                            {{ number_format($penggajian->gaji_pokok_saat_ini + $penggajian->thr + $penggajian->total_tunjangan + $penggajian->uang_lembur, 0, ',', '.') }}</span>
                     </div>
                 </div>
             </div>
@@ -86,7 +90,7 @@
                 <div class="flex items-center gap-3">
                     <div class="font-mono-data text-[12px]">
                         (<span class=" text-green-600">Rp
-                            {{ number_format($penggajian->gaji_pokok_saat_ini + $penggajian->total_tunjangan + $penggajian->uang_lembur, 0, ',', '.') }}</span>
+                            {{ number_format($penggajian->gaji_pokok_saat_ini + $penggajian->thr + $penggajian->total_tunjangan + $penggajian->uang_lembur, 0, ',', '.') }}</span>
                         <span class=" text-red-600">- Rp
                             {{ number_format($penggajian->total_potongan, 0, ',', '.') }}</span>)
                     </div>
