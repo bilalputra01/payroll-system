@@ -25,7 +25,7 @@ class PenggajianController extends Controller
         $penggajian = \App\Models\Penggajian::with('karyawan')
             ->where('periode', $filter_periode)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(5);
 
         return view('penggajian.index', compact('penggajian'));
     }

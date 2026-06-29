@@ -93,6 +93,12 @@
                 @endforeach
             </tbody>
         </table>
+        {{-- ── Pagination Wrapper ── --}}
+        <div class="kry-pagination">
+            {{-- Menggunakan appends agar saat pindah halaman, filter bulan tidak hilang --}}
+            {{ $penggajian->appends(['filter_periode' => request('filter_periode')])->links() }}
+        </div>
+
     </div>
 
     <script>

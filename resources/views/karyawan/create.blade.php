@@ -27,9 +27,12 @@
                 </div>
 
                 <div class="field">
-                    <label>Nama Lengkap Karyawan</label>
-                    <input type="text" name="nama_karyawan" value="{{ old('nama_karyawan') }}" required
-                        placeholder="Cth: Budi Santoso">
+                    <label for="nama_karyawan" class="form-label">Nama Karyawan</label>
+                    <input type="text" class="form-control" name="nama_karyawan" id="nama_karyawan" required
+                        pattern="[a-zA-Z\s\.\'\-]+"
+                        title="Nama hanya boleh berisi huruf, spasi, titik, atau tanda kutip"
+                        oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '')"
+                        placeholder="Contoh: Muhammad Bilal">
                 </div>
 
                 <div class="field">

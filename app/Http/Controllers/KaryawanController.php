@@ -44,7 +44,7 @@ class KaryawanController extends Controller
         // 1. Validasi Semua Inputan
         $request->validate([
             'nik' => 'required|string|unique:karyawan,nik',
-            'nama_karyawan' => 'required|string|max:255',
+            'nama_karyawan' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\.\'\-]+$/'],
             'email' => 'required|email|unique:karyawan,email|unique:users,email',
             'status' => 'required|in:Tetap,Kontrak,Magang',
             'jabatan_id' => 'required',
