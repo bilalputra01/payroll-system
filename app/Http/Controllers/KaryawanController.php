@@ -50,6 +50,7 @@ class KaryawanController extends Controller
             'jabatan_id' => 'required',
             'nama_bank' => 'required|in:BCA',
             'nomor_rekening' => 'required|numeric|unique:karyawan,nomor_rekening|max_digits:50',
+            'tanggal_masuk' => 'required|date',
         ]);
 
         // 2. Simpan Data Karyawan (Termasuk Bank & Rekening)
@@ -61,6 +62,7 @@ class KaryawanController extends Controller
             'jabatan_id' => $request->jabatan_id,
             'nama_bank' => $request->nama_bank,
             'nomor_rekening' => $request->nomor_rekening,
+            'tanggal_masuk' => $request->tanggal_masuk,
         ]);
 
         // 3. Otomatis Buatkan Akun Login

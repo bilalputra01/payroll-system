@@ -35,12 +35,27 @@
                 <p><span class="font-bold inline-block w-24">Periode</span>:
                     {{ \Carbon\Carbon::parse($penggajian->periode)->translatedFormat('F Y') }}</p>
                 <p><span class="font-bold inline-block w-24">Nama</span>: {{ $penggajian->karyawan->nama_karyawan }}</p>
+                <p><span class="font-bold inline-block w-24">Tgl. Masuk</span>:
+                    {{ $penggajian->karyawan->tanggal_masuk ? \Carbon\Carbon::parse($penggajian->karyawan->tanggal_masuk)->translatedFormat('d F Y') : '-' }}</p>
             </div>
             <div>
                 <p><span class="font-bold inline-block w-24">Jabatan</span>:
                     {{ $penggajian->karyawan->jabatan->nama_jabatan }}</p>
                 <p><span class="font-bold inline-block w-24">No. Rekening</span>:
                     {{ $penggajian->karyawan->nomor_rekening }}</p>
+                @php
+                    // Deteksi apakah gaji diprorata: bandingkan gaji tersimpan dengan gaji penuh jabatan
+                    $gaji_penuh = $penggajian->karyawan->jabatan->gaji_pokok ?? 0;
+                    $is_prorata = $gaji_penuh > 0 && abs($penggajian->gaji_pokok_saat_ini - $gaji_penuh) > 100;
+                    $rasio = $gaji_penuh > 0 ? round(($penggajian->gaji_pokok_saat_ini / $gaji_penuh) * 100) : 100;
+                @endphp
+                @if($is_prorata)
+                    <p class="mt-1">
+                        <span class="inline-block bg-yellow-100 text-yellow-800 text-xs font-semibold px-2 py-0.5 rounded">
+                            PRORATA {{ $rasio }}% — Masuk tengah bulan
+                        </span>
+                    </p>
+                @endif
             </div>
         </div>
 

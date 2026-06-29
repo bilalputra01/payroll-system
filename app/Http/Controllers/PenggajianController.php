@@ -40,6 +40,7 @@ class PenggajianController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * Kalkulasi payroll dengan dukungan PRORATA gaji untuk karyawan masuk tengah bulan.
      */
     public function store(Request $request)
     {
@@ -54,26 +55,81 @@ class PenggajianController extends Controller
             return redirect()->back()->with('error', 'Gagal! Belum ada data absensi untuk periode tersebut.');
         }
 
+        // Parse periode menjadi bulan dan tahun
+        $periode_carbon = \Carbon\Carbon::parse($request->periode . '-01');
+        $tahun = $periode_carbon->year;
+        $bulan = $periode_carbon->month;
+
+        // Hitung total hari kerja (Senin-Jumat) dalam bulan tersebut
+        $awal_bulan = \Carbon\Carbon::create($tahun, $bulan, 1);
+        $akhir_bulan = $awal_bulan->copy()->endOfMonth();
+        $total_hari_kerja_bulan = 0;
+        $tanggal_cek = $awal_bulan->copy();
+        while ($tanggal_cek->lte($akhir_bulan)) {
+            if ($tanggal_cek->isWeekday()) {
+                $total_hari_kerja_bulan++;
+            }
+            $tanggal_cek->addDay();
+        }
+
         foreach ($data_absensi as $absen) {
             if (!$absen->karyawan || !$absen->karyawan->jabatan) continue;
 
-            $gapok = $absen->karyawan->jabatan->gaji_pokok;
-            $tunjangan = $absen->karyawan->jabatan->tunjangan_tetap;
+            // ═══════════════════════════════════════════════════
+            // LOGIKA PRORATA: Cek apakah karyawan masuk tengah bulan
+            // ═══════════════════════════════════════════════════
+            $rasio_prorata = 1; // Default: gaji penuh (100%)
+            $is_prorata = false;
+
+            if ($absen->karyawan->tanggal_masuk) {
+                $tanggal_masuk = \Carbon\Carbon::parse($absen->karyawan->tanggal_masuk);
+
+                // Jika tanggal masuk berada di DALAM bulan periode ini
+                if ($tanggal_masuk->year == $tahun && $tanggal_masuk->month == $bulan) {
+                    // Hitung hari kerja sejak tanggal masuk sampai akhir bulan
+                    $hari_kerja_aktual = 0;
+                    $tanggal_hitung = $tanggal_masuk->copy();
+                    while ($tanggal_hitung->lte($akhir_bulan)) {
+                        if ($tanggal_hitung->isWeekday()) {
+                            $hari_kerja_aktual++;
+                        }
+                        $tanggal_hitung->addDay();
+                    }
+
+                    // Rasio prorata = hari kerja aktual / total hari kerja bulan
+                    $rasio_prorata = $total_hari_kerja_bulan > 0
+                        ? $hari_kerja_aktual / $total_hari_kerja_bulan
+                        : 0;
+                    $is_prorata = true;
+                }
+            }
+
+            // ═══════════════════════════════════════════════════
+            // KALKULASI GAJI (dengan prorata jika berlaku)
+            // ═══════════════════════════════════════════════════
+            $gapok_penuh = $absen->karyawan->jabatan->gaji_pokok;
+            $tunjangan_penuh = $absen->karyawan->jabatan->tunjangan_tetap;
+
+            // Terapkan prorata ke gaji pokok dan tunjangan
+            $gapok = round($gapok_penuh * $rasio_prorata, 2);
+            $tunjangan = round($tunjangan_penuh * $rasio_prorata, 2);
             $upah_tetap = $gapok + $tunjangan;
-            $thr = $request->has('is_thr') ? $upah_tetap : 0;
-            // 1. Hitung Lembur (PP 35/2021)
-            $upah_sejam = $upah_tetap / 173;
+
+            // THR tetap penuh (tidak diprorata) sesuai regulasi
+            $thr = $request->has('is_thr') ? ($gapok_penuh + $tunjangan_penuh) : 0;
+
+            // 1. Hitung Lembur (PP 35/2021) - berdasarkan upah tetap PENUH
+            $upah_sejam = ($gapok_penuh + $tunjangan_penuh) / 173;
             $jam = $absen->jam_lembur;
             $uang_lembur = $jam > 0 ? (1.5 * $upah_sejam) + (($jam - 1) * 2 * $upah_sejam) : 0;
 
-            // 2. Potongan Absensi
+            // 2. Potongan Absensi (denda flat, tidak diprorata)
             $potongan_telat = $absen->jumlah_telat * 50000;
             $potongan_tidak_hadir = $absen->jumlah_tidak_hadir * 100000;
             $potongan_izin = $absen->jumlah_izin * 25000;
-
             $total_denda_absen = $potongan_izin + $potongan_telat + $potongan_tidak_hadir;
 
-            // 3. Potongan BPJS (Karyawan)
+            // 3. Potongan BPJS (berdasarkan upah tetap yang sudah diprorata)
             $bpjs_kes = min($upah_tetap, 12000000) * 0.01;
             $bpjs_tk = ($upah_tetap * 0.02) + (min($upah_tetap, 10042300) * 0.01);
 
@@ -82,7 +138,6 @@ class PenggajianController extends Controller
             $biaya_jabatan = min($bruto * 0.05, 500000);
             $pkp_sebulan = max(0, ($bruto - $biaya_jabatan - $bpjs_tk) - 4500000);
             $pph21 = $pkp_sebulan * 0.05;
-
 
             // 5. Total & Simpan
             $total_potongan = $total_denda_absen + $bpjs_kes + $bpjs_tk + $pph21;
@@ -95,20 +150,16 @@ class PenggajianController extends Controller
                     'total_tunjangan' => $tunjangan,
                     'uang_lembur' => $uang_lembur,
                     'thr' => $thr,
-                    // 'potongan_telat' => $potongan_telat,
-                    // 'potongan_tidak_hadir' => $potongan_tidak_hadir,
-                    // 'potongan_izin' => $potongan_izin,
                     'potongan_absensi' => $total_denda_absen,
                     'total_potongan' => $total_potongan,
                     'bpjs_kesehatan' => $bpjs_kes,
                     'bpjs_ketenagakerjaan' => $bpjs_tk,
                     'pph21' => $pph21,
                     'gaji_bersih' => $bruto - $total_potongan,
-
                 ]
             );
         }
-        return redirect()->back()->with('success', 'Kalkulasi Payroll Enterprise Berhasil!');
+        return redirect()->back()->with('success', 'Kalkulasi Payroll Enterprise Berhasil! (Prorata otomatis diterapkan untuk karyawan baru)');
     }
 
     /**

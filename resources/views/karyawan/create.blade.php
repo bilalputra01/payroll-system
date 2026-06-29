@@ -85,6 +85,14 @@
                     </div>
                 </div>
 
+                <div class="field">
+                    <label>Tanggal Masuk Kerja</label>
+                    <input type="date" name="tanggal_masuk" value="{{ old('tanggal_masuk') }}" required>
+                    <small style="color: #94a3b8; font-size: 11px; margin-top: 4px;">
+                        * Digunakan untuk prorata gaji jika masuk di tengah bulan
+                    </small>
+                </div>
+
             </div>
 
             <div class="kry-footer">
