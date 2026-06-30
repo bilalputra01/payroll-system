@@ -94,7 +94,8 @@ class KaryawanController extends Controller
      */
     public function edit(Karyawan $karyawan)
     {
-        //
+        $jabatan = \App\Models\Jabatan::all();
+        return view('karyawan.edit', compact('karyawan', 'jabatan'));
     }
 
     /**
@@ -102,7 +103,35 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, Karyawan $karyawan)
     {
-        //
+        // Validasi — unique dikecualikan untuk data milik karyawan itu sendiri
+        $request->validate([
+            'nama_karyawan' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z\s\.\x27\-]+$/'],
+            'email'         => 'required|email|unique:karyawan,email,' . $karyawan->nik . ',nik|unique:users,email,' . $karyawan->nik . ',nik',
+            'status'        => 'required|in:Tetap,Kontrak,Magang',
+            'jabatan_id'    => 'required|exists:jabatan,id',
+            'nama_bank'     => 'required|in:BCA',
+            'nomor_rekening'=> 'required|numeric|unique:karyawan,nomor_rekening,' . $karyawan->nik . ',nik|max_digits:50',
+            'tanggal_masuk' => 'required|date',
+        ]);
+
+        // Update data karyawan
+        $karyawan->update([
+            'nama_karyawan'  => $request->nama_karyawan,
+            'email'          => $request->email,
+            'status'         => $request->status,
+            'jabatan_id'     => $request->jabatan_id,
+            'nama_bank'      => $request->nama_bank,
+            'nomor_rekening' => $request->nomor_rekening,
+            'tanggal_masuk'  => $request->tanggal_masuk,
+        ]);
+
+        // Sinkronisasi email & nama di tabel users jika berubah
+        \App\Models\User::where('nik', $karyawan->nik)->update([
+            'name'  => $request->nama_karyawan,
+            'email' => $request->email,
+        ]);
+
+        return redirect()->route('karyawan.index')->with('success', 'Data karyawan berhasil diperbarui!');
     }
 
     /**
