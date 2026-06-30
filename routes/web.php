@@ -13,8 +13,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-
-
+// hanya bisa diakses admin
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
