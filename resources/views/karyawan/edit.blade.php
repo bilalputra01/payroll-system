@@ -30,8 +30,7 @@
                 <div class="field">
                     <label for="nama_karyawan">Nama Karyawan</label>
                     <input type="text" name="nama_karyawan" id="nama_karyawan"
-                        value="{{ old('nama_karyawan', $karyawan->nama_karyawan) }}"
-                        pattern="[a-zA-Z\s\.\'\-]+"
+                        value="{{ old('nama_karyawan', $karyawan->nama_karyawan) }}" pattern="[a-zA-Z\s\.\'\-]+"
                         title="Nama hanya boleh berisi huruf, spasi, titik, atau tanda kutip"
                         oninput="this.value = this.value.replace(/[^a-zA-Z\s\.\'\-]/g, '')"
                         placeholder="Contoh: Muhammad Bilal" required>
@@ -42,8 +41,7 @@
 
                 <div class="field">
                     <label>Alamat Email</label>
-                    <input type="email" name="email"
-                        value="{{ old('email', $karyawan->email) }}"
+                    <input type="email" name="email" value="{{ old('email', $karyawan->email) }}"
                         placeholder="Cth: budi@perusahaan.com" required>
                     @error('email')
                         <span class="field-error">{{ $message }}</span>
@@ -54,7 +52,9 @@
                     <label>Bank</label>
                     <div class="select-wrap">
                         <select name="nama_bank" id="bank_select" required>
-                            <option value="BCA" {{ old('nama_bank', $karyawan->nama_bank) == 'BCA' ? 'selected' : '' }}>BCA (Bank Central Asia)</option>
+                            <option value="BCA"
+                                {{ old('nama_bank', $karyawan->nama_bank) == 'BCA' ? 'selected' : '' }}>BCA (Bank
+                                Central Asia)</option>
                         </select>
                     </div>
                 </div>
@@ -73,9 +73,11 @@
                     <label>Status Karyawan</label>
                     <div class="select-wrap">
                         <select name="status" id="status_select" required>
-                            <option value="Tetap"   {{ old('status', $karyawan->status) == 'Tetap'   ? 'selected' : '' }}>Karyawan Tetap</option>
-                            <option value="Kontrak" {{ old('status', $karyawan->status) == 'Kontrak' ? 'selected' : '' }}>Kontrak</option>
-                            <option value="Magang"  {{ old('status', $karyawan->status) == 'Magang'  ? 'selected' : '' }}>Magang</option>
+                            <option value="Tetap"
+                                {{ old('status', $karyawan->status) == 'Tetap' ? 'selected' : '' }}>Karyawan Tetap
+                            </option>
+                            {{-- <option value="Kontrak" {{ old('status', $karyawan->status) == 'Kontrak' ? 'selected' : '' }}>Kontrak</option>
+                            <option value="Magang"  {{ old('status', $karyawan->status) == 'Magang'  ? 'selected' : '' }}>Magang</option> --}}
                         </select>
                     </div>
                 </div>

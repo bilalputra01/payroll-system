@@ -68,7 +68,7 @@
                         <select name="status" id="status_select" onchange="toggleJabatan()" required>
                             <option value="" disabled selected>-- Pilih Status --</option>
                             <option value="Tetap">Karyawan Tetap</option>
-                            <option value="Kontrak">Kontrak</option>
+                            {{-- <option value="Kontrak">Kontrak</option> --}}
                         </select>
                     </div>
                 </div>

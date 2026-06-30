@@ -126,7 +126,7 @@ class PenggajianController extends Controller
             // 2. Potongan Absensi (denda flat, tidak diprorata)
             $potongan_telat = $absen->jumlah_telat * 50000;
             $potongan_tidak_hadir = $absen->jumlah_tidak_hadir * 100000;
-            $potongan_izin = $absen->jumlah_izin * 25000;
+            $potongan_izin = $absen->jumlah_izin * 0;
             $total_denda_absen = $potongan_izin + $potongan_telat + $potongan_tidak_hadir;
 
             // 3. Potongan BPJS (berdasarkan upah tetap yang sudah diprorata)

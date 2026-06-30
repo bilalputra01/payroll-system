@@ -48,15 +48,15 @@ class DatabaseSeeder extends Seeder
 
         $data_karyawan = [
             ['nik' => 'KRY-001', 'nama' => 'Bilal Putra Wibowo', 'email' => 'bilal@perusahaan.com', 'nomor_rekening' => '1234567891', 'status' => 'Tetap',  'jabatan_id' => $jabatan_fsd->id, 'tanggal_masuk' => '2024-01-02'],
-            ['nik' => 'KRY-002', 'nama' => 'Andi Susanto', 'email' => 'andi@perusahaan.com', 'nomor_rekening' => '1234567892', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_it->id, 'tanggal_masuk' => '2024-03-04'],
+            ['nik' => 'KRY-002', 'nama' => 'Andi Susanto', 'email' => 'andi@perusahaan.com', 'nomor_rekening' => '1234567892', 'status' => 'Tetap', 'jabatan_id' => $jabatan_it->id, 'tanggal_masuk' => '2024-03-04'],
             ['nik' => 'KRY-003', 'nama' => 'Budi Prakoso', 'email' => 'budi@perusahaan.com', 'nomor_rekening' => '1234567893', 'status' => 'Tetap', 'jabatan_id' => $jabatan_finance->id, 'tanggal_masuk' => '2024-02-12'],
-            ['nik' => 'KRY-004', 'nama' => 'Citra Lestari', 'email' => 'citra@perusahaan.com', 'nomor_rekening' => '1234567894', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_hr->id, 'tanggal_masuk' => '2024-06-01'],
+            ['nik' => 'KRY-004', 'nama' => 'Citra Lestari', 'email' => 'citra@perusahaan.com', 'nomor_rekening' => '1234567894', 'status' => 'Tetap', 'jabatan_id' => $jabatan_hr->id, 'tanggal_masuk' => '2024-06-01'],
             ['nik' => 'KRY-005', 'nama' => 'Dewi Sartika', 'email' => 'dewi@perusahaan.com', 'nomor_rekening' => '1234567895', 'status' => 'Tetap', 'jabatan_id' => $jabatan_dm->id, 'tanggal_masuk' => '2024-04-15'],
-            ['nik' => 'KRY-006', 'nama' => 'Eko Prasetyo', 'email' => 'eko@perusahaan.com', 'nomor_rekening' => '1234567896', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_it->id, 'tanggal_masuk' => '2025-01-06'],
+            ['nik' => 'KRY-006', 'nama' => 'Eko Prasetyo', 'email' => 'eko@perusahaan.com', 'nomor_rekening' => '1234567896', 'status' => 'Tetap', 'jabatan_id' => $jabatan_it->id, 'tanggal_masuk' => '2025-01-06'],
             ['nik' => 'KRY-007', 'nama' => 'Fajar Nugraha', 'email' => 'fajar@perusahaan.com', 'nomor_rekening' => '1234567897', 'status' => 'Tetap', 'jabatan_id' => $jabatan_finance->id, 'tanggal_masuk' => '2024-08-01'],
-            ['nik' => 'KRY-008', 'nama' => 'Gita Gutawa', 'email' => 'gita@perusahaan.com', 'nomor_rekening' => '1234567898', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_dm->id, 'tanggal_masuk' => '2025-03-10'],
+            ['nik' => 'KRY-008', 'nama' => 'Gita Gutawa', 'email' => 'gita@perusahaan.com', 'nomor_rekening' => '1234567898', 'status' => 'Tetap', 'jabatan_id' => $jabatan_dm->id, 'tanggal_masuk' => '2025-03-10'],
             ['nik' => 'KRY-009', 'nama' => 'Hadi Sucipto', 'email' => 'hadi@perusahaan.com', 'nomor_rekening' => '1234567899', 'status' => 'Tetap', 'jabatan_id' => $jabatan_it->id, 'tanggal_masuk' => '2024-05-20'],
-            ['nik' => 'KRY-010', 'nama' => 'Indah Permatasari', 'email' => 'indah@perusahaan.com', 'nomor_rekening' => '1234567890', 'status' => 'Kontrak', 'jabatan_id' => $jabatan_fsd->id, 'tanggal_masuk' => '2026-06-15'],
+            ['nik' => 'KRY-010', 'nama' => 'Indah Permatasari', 'email' => 'indah@perusahaan.com', 'nomor_rekening' => '1234567890', 'status' => 'Tetap', 'jabatan_id' => $jabatan_fsd->id, 'tanggal_masuk' => '2026-06-15'],
         ];
 
         foreach ($data_karyawan as $data) {
