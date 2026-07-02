@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('nama_bank');
             $table->string('nomor_rekening');
             $table->string('status');
+            $table->integer('gaji_pokok')->nullable();
+            $table->integer('tunjangan')->nullable();
             $table->date('tanggal_masuk')->nullable();
             $table->timestamps();
         });

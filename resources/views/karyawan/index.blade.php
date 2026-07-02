@@ -58,7 +58,10 @@
                             </div>
                         </td>
                         <td class="td-salary">
-                            Rp {{ number_format($k->jabatan->gaji_pokok, 0, ',', '.') }}
+                            Rp {{ number_format($k->gaji_pokok ?? $k->jabatan->gaji_pokok, 0, ',', '.') }}
+                            @if($k->gaji_pokok)
+                                <br><small style="color: #94a3b8; font-size: 10px;">(Gaji Khusus)</small>
+                            @endif
                         </td>
                         <td>
                             <div style="display:flex; align-items:center; gap:6px; flex-wrap:nowrap;">

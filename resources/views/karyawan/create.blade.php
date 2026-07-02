@@ -92,6 +92,24 @@
                         * Digunakan untuk prorata gaji jika masuk di tengah bulan
                     </small>
                 </div>
+                
+                <div class="field">
+                    <label>Gaji Pokok (Opsional)</label>
+                    <input type="number" name="gaji_pokok" value="{{ old('gaji_pokok') }}"
+                        placeholder="Contoh: 5000000">
+                    <small style="color: #94a3b8; font-size: 11px; margin-top: 4px;">
+                        * Kosongkan jika ingin mengikuti gaji dari jabatan
+                    </small>
+                </div>
+
+                <div class="field">
+                    <label>Tunjangan (Opsional)</label>
+                    <input type="number" name="tunjangan" value="{{ old('tunjangan') }}"
+                        placeholder="Contoh: 2000000">
+                    <small style="color: #94a3b8; font-size: 11px; margin-top: 4px;">
+                        * Kosongkan jika ingin mengikuti tunjangan dari jabatan
+                    </small>
+                </div>
 
             </div>
 

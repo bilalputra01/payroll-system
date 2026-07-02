@@ -17,7 +17,7 @@ class Karyawan extends Model
     protected $keyType = 'string';
 
     // Pastikan 'nik' masuk ke fillable
-    protected $fillable = ['nik', 'jabatan_id', 'nama_karyawan', 'email', 'nomor_rekening', 'status', 'nama_bank', 'tanggal_masuk'];
+    protected $fillable = ['nik', 'jabatan_id', 'nama_karyawan', 'email', 'nomor_rekening', 'status', 'nama_bank', 'tanggal_masuk', 'gaji_pokok', 'tunjangan'];
 
     // Tambahkan jembatan relasi ini:
     public function jabatan()

@@ -107,16 +107,34 @@ class PenggajianController extends Controller
             // ═══════════════════════════════════════════════════
             // KALKULASI GAJI (dengan prorata jika berlaku)
             // ═══════════════════════════════════════════════════
-            $gapok_penuh = $absen->karyawan->jabatan->gaji_pokok;
-            $tunjangan_penuh = $absen->karyawan->jabatan->tunjangan_tetap;
+            $gapok_penuh = $absen->karyawan->gaji_pokok ?? $absen->karyawan->jabatan->gaji_pokok;
+            $tunjangan_penuh = $absen->karyawan->tunjangan ?? $absen->karyawan->jabatan->tunjangan_tetap;
 
             // Terapkan prorata ke gaji pokok dan tunjangan
             $gapok = round($gapok_penuh * $rasio_prorata, 2);
             $tunjangan = round($tunjangan_penuh * $rasio_prorata, 2);
             $upah_tetap = $gapok + $tunjangan;
 
-            // THR tetap penuh (tidak diprorata) sesuai regulasi
-            $thr = $request->has('is_thr') ? ($gapok_penuh + $tunjangan_penuh) : 0;
+            // THR (Proporsional sesuai masa kerja, Permenaker No 6/2016)
+            $thr = 0;
+            if ($request->has('is_thr')) {
+                $upah_1_bulan = $gapok_penuh + $tunjangan_penuh;
+                if ($absen->karyawan->tanggal_masuk) {
+                    $tanggal_masuk_thr = \Carbon\Carbon::parse($absen->karyawan->tanggal_masuk);
+                    // Hitung masa kerja dalam bulan sampai akhir periode bulan ini
+                    $masa_kerja_bulan = $tanggal_masuk_thr->diffInMonths($akhir_bulan);
+                    
+                    if ($masa_kerja_bulan >= 12) {
+                        $thr = $upah_1_bulan;
+                    } elseif ($masa_kerja_bulan >= 1) {
+                        $thr = round(($masa_kerja_bulan / 12) * $upah_1_bulan, 2);
+                    } else {
+                        $thr = 0; // Kurang dari 1 bulan tidak berhak THR
+                    }
+                } else {
+                    $thr = $upah_1_bulan;
+                }
+            }
 
             // 1. Hitung Lembur (PP 35/2021) - berdasarkan upah tetap PENUH
             $upah_sejam = ($gapok_penuh + $tunjangan_penuh) / 173;

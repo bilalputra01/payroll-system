@@ -44,8 +44,8 @@
                 <p><span class="font-bold inline-block w-24">No. Rekening</span>:
                     {{ $penggajian->karyawan->nomor_rekening }}</p>
                 @php
-                    // Deteksi apakah gaji diprorata: bandingkan gaji tersimpan dengan gaji penuh jabatan
-                    $gaji_penuh = $penggajian->karyawan->jabatan->gaji_pokok ?? 0;
+                    // Deteksi apakah gaji diprorata: bandingkan gaji tersimpan dengan gaji penuh jabatan/khusus
+                    $gaji_penuh = $penggajian->karyawan->gaji_pokok ?? $penggajian->karyawan->jabatan->gaji_pokok ?? 0;
                     $is_prorata = $gaji_penuh > 0 && abs($penggajian->gaji_pokok_saat_ini - $gaji_penuh) > 100;
                     $rasio = $gaji_penuh > 0 ? round(($penggajian->gaji_pokok_saat_ini / $gaji_penuh) * 100) : 100;
                 @endphp

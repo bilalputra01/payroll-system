@@ -51,13 +51,16 @@ class PenggajianExport implements FromCollection, WithHeadings, WithMapping
             'Jumlah Alpa',
             'Jumlah Izin',
             'Jam Lembur',
-            'Uang Lembur',
             'Gaji Pokok',
             'Tunjangan',
+            'THR',
+            'Uang Lembur',
             'Potongan Absensi',
+            'BPJS Kesehatan',
+            'BPJS Ketenagakerjaan',
+            'PPh 21',
             'Total Potongan',
             'Gaji Bersih (Take Home Pay)'
-
         ];
     }
 
@@ -65,20 +68,25 @@ class PenggajianExport implements FromCollection, WithHeadings, WithMapping
     {
         // 4. CEK LOGIKA: Apakah baris yang sedang diproses ini adalah baris total buatan kita?
         if (isset($penggajian->is_baris_total)) {
-            // Jika YA, kosongkan kolom 1 sampai 7, dan isi kolom 8 dan 9
+            // Jika YA, kosongkan kolom sebelumnya dan beri total di dua kolom terakhir
             return [
-                '', // NIK kosong
-                '', // Nama kosong
-                '', // Jabatan kosong
-                '', // Periode kosong
-                '', // 
-                '', //
-                '', // 
-                '', // 
-                '', // Gaji Pokok kosong
-                '', // Tunjangan kosong
-                '', // 
-                '', // Lembur kosong
+                '', // NIK
+                '', // Nama
+                '', // Jabatan
+                '', // Periode
+                '', // Hadir
+                '', // Telat
+                '', // Alpa
+                '', // Izin
+                '', // Jam Lembur
+                '', // Gaji Pokok
+                '', // Tunjangan
+                '', // THR
+                '', // Uang Lembur
+                '', // Potongan Absensi
+                '', // BPJS Kes
+                '', // BPJS TK
+                '', // PPh 21
                 'TOTAL PENGELUARAN:',
                 $penggajian->total_angka
             ];
@@ -92,14 +100,20 @@ class PenggajianExport implements FromCollection, WithHeadings, WithMapping
             $penggajian->nik,
             $penggajian->karyawan ? $penggajian->karyawan->nama_karyawan : 'Data Karyawan Dihapus',
             $penggajian->karyawan && $penggajian->karyawan->jabatan ? $penggajian->karyawan->jabatan->nama_jabatan : '-',
+            $penggajian->periode,
+            $absensi ? $absensi->jumlah_hadir : 0,
             $absensi ? $absensi->jumlah_telat : 0,
             $absensi ? $absensi->jumlah_tidak_hadir : 0,
             $absensi ? $absensi->jumlah_izin : 0,
             $absensi ? $absensi->jam_lembur : 0,
-            $penggajian->uang_lembur,
             $penggajian->gaji_pokok_saat_ini,
             $penggajian->total_tunjangan,
+            $penggajian->thr,
+            $penggajian->uang_lembur,
             $penggajian->potongan_absensi,
+            $penggajian->bpjs_kesehatan,
+            $penggajian->bpjs_ketenagakerjaan,
+            $penggajian->pph21,
             $penggajian->total_potongan,
             $penggajian->gaji_bersih,
         ];

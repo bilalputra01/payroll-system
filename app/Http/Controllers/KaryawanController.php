@@ -51,6 +51,8 @@ class KaryawanController extends Controller
             'nama_bank' => 'required|in:BCA',
             'nomor_rekening' => 'required|numeric|unique:karyawan,nomor_rekening|max_digits:50',
             'tanggal_masuk' => 'required|date',
+            'gaji_pokok' => 'nullable|numeric|min:0',
+            'tunjangan' => 'nullable|numeric|min:0',
         ]);
 
         // 2. Simpan Data Karyawan (Termasuk Bank & Rekening)
@@ -63,6 +65,8 @@ class KaryawanController extends Controller
             'nama_bank' => $request->nama_bank,
             'nomor_rekening' => $request->nomor_rekening,
             'tanggal_masuk' => $request->tanggal_masuk,
+            'gaji_pokok' => $request->gaji_pokok,
+            'tunjangan' => $request->tunjangan,
         ]);
 
         // 3. Otomatis Buatkan Akun Login
@@ -112,6 +116,8 @@ class KaryawanController extends Controller
             'nama_bank'     => 'required|in:BCA',
             'nomor_rekening'=> 'required|numeric|unique:karyawan,nomor_rekening,' . $karyawan->nik . ',nik|max_digits:50',
             'tanggal_masuk' => 'required|date',
+            'gaji_pokok'    => 'nullable|numeric|min:0',
+            'tunjangan'     => 'nullable|numeric|min:0',
         ]);
 
         // Update data karyawan
@@ -123,6 +129,8 @@ class KaryawanController extends Controller
             'nama_bank'      => $request->nama_bank,
             'nomor_rekening' => $request->nomor_rekening,
             'tanggal_masuk'  => $request->tanggal_masuk,
+            'gaji_pokok'     => $request->gaji_pokok,
+            'tunjangan'      => $request->tunjangan,
         ]);
 
         // Sinkronisasi email & nama di tabel users jika berubah

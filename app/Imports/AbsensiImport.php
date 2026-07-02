@@ -39,11 +39,11 @@ class AbsensiImport implements ToCollection, WithHeadingRow
                     'periode' => $row['periode'],
                 ],
                 [
-                    'jumlah_hadir' => $row['jumlah_hadir'] ?? 0,
-                    'jumlah_telat' => $row['jumlah_telat'] ?? 0,
-                    'jam_lembur' => $row['jam_lembur'] ?? 0,
-                    'jumlah_tidak_hadir' => $row['jumlah_alpa'] ?? 0,
-                    'jumlah_izin' => $row['jumlah_izin'] ?? 0,
+                    'jumlah_hadir' => $row['jumlah_hadir'] ?? $row['hadir'] ?? 0,
+                    'jumlah_telat' => $row['jumlah_telat'] ?? $row['telat'] ?? 0,
+                    'jam_lembur' => $row['jam_lembur'] ?? $row['lembur'] ?? 0,
+                    'jumlah_tidak_hadir' => $row['jumlah_alpa'] ?? $row['alpa'] ?? $row['tidak_hadir'] ?? 0,
+                    'jumlah_izin' => $row['jumlah_izin'] ?? $row['izin'] ?? 0,
                 ]
             );
         }
